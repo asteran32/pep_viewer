@@ -36,10 +36,30 @@ test('YouTube links are canonical and reject executable URLs', () => {
   assert.equal(youtubeUrl('javascript:alert(1)'),null);
   assert.equal(youtubeUrl('abcdefghijk',null),'https://www.youtube.com/watch?v=abcdefghijk');
 });
-test('claim export includes full labels and all claims within matched videos', () => {
-  const result = claimTable([{...rows[0],claims:[{id:'c1',suggested:{evidence:'E0',claim_text:'원문'},reviewed:null,occurrences:[],review_status:'pending_manual_review',validation_report:{warnings:[]}}]}]);
-  assert.equal(result.rows.length,1);
-  assert.ok(result.headers.includes('AI 제안 · 원문 인용'));
-  assert.ok(result.headers.includes('사람 확정 · 근거 분류'));
-  assert.equal(result.rows[0][result.headers.indexOf('AI 제안 · 원문 인용')],'원문');
+test('claim export uses one row per matching claim, preserving zero-claim videos', () => {
+  const job = {...rows[0],claims:[
+    {id:'c1',suggested:{evidence:'E0',risk_level:'low',claim_paraphrase:'첫 주장',claim_text:'AI 인용'},reviewed:null,occurrences:[{source_quote:'실제 전사 원문'}],review_status:'pending_manual_review',validation_report:{warnings:[]}},
+    {id:'c2',suggested:{evidence:'E3',risk_level:'moderate',claim_paraphrase:'둘째 주장',claim_text:'둘째 인용'},reviewed:null,occurrences:[]},
+  ]};
+  const unclassified={...rows[2],claims:[]};
+  const result = claimTable([job,unclassified]);
+  assert.equal(result.rows.length,3);
+  assert.equal(result.rows[0][result.headers.indexOf('증거 전사 자료')],'실제 전사 원문');
+  assert.equal(result.rows[1][result.headers.indexOf('위험도')],'중간');
+  assert.equal(result.rows[2][result.headers.indexOf('주장')],'분류 없음');
+  assert.equal(result.rows[2][result.headers.indexOf('근거')],'분류 없음');
+  assert.equal(result.rows[2][result.headers.indexOf('위험도')],'');
+  for(const name of ['검토 경고 수','수집 검색어','주장 수','영상 길이(초)'])assert.ok(!result.headers.includes(name));
+  const onlyModerate=claimTable([job,unclassified],{grades:['E3'],risks:['moderate']});
+  assert.equal(onlyModerate.rows.length,1);
+  assert.equal(onlyModerate.rows[0][onlyModerate.headers.indexOf('주장 ID')],'c2');
+  assert.equal(claimTable([job],{grades:['E0'],risks:['moderate']}).rows.length,0);
+  const detail=claimTable([job],{detailed:true});
+  assert.ok(detail.headers.includes('AI 제안 · 원문 인용'));
+  assert.ok(detail.headers.includes('사람 확정 · 근거 분류'));
+});
+test('filtering out all actual claims must not invent an unclassified row', () => {
+  const result=claimTable([{...rows[0],claims:[{id:'one',suggested:{evidence:'E3',risk_level:'high'},occurrences:[]}]}],{grades:['__none__']});
+  assert.equal(result.rows.length,0);
+  assert.equal(result.unclassifiedCount,0);
 });

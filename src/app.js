@@ -248,10 +248,10 @@ $('download-button').addEventListener('click', async () => {
   if (!matches.length || state.downloading) return;
   state.downloading = true; $('download-button').setAttribute('aria-busy', 'true'); renderMain();
   $('download-notice').classList.remove('error-text');
-  $('download-notice').textContent = `${format.toUpperCase()} 파일을 생성하고 있습니다.${format === 'xlsx' ? ' 선택된 영상의 모든 주장을 상세 시트에 포함합니다.' : ''}`;
+  $('download-notice').textContent = `조건에 맞는 주장으로 ${format.toUpperCase()} 파일을 생성하고 있습니다.`;
   try {
-    await exportRows(matches, format, loadDetail);
-    $('download-notice').textContent = `${n(matches.length)}건의 영상 목록을 ${format.toUpperCase()}로 다운로드했습니다.${format === 'xlsx' ? ' ‘주장 상세’ 시트에는 해당 영상의 모든 주장이 포함됩니다.' : ''}`;
+    const result = await exportRows(matches, format, loadDetail, {grades:[...state.grades], risks:[...state.risks]});
+    $('download-notice').textContent = `${format.toUpperCase()} ${n(result.rowCount)}행 다운로드 · 주장 ${n(result.claimCount)}건 · 분류 없음 ${n(result.unclassifiedCount)}건`;
   } catch (error) {
     $('download-notice').classList.add('error-text');
     $('download-notice').textContent = '다운로드 실패: ' + error.message;

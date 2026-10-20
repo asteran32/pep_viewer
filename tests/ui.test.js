@@ -5,6 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {JSDOM, ResourceLoader, VirtualConsole} from 'jsdom';
 import {build} from 'esbuild';
 import ExcelJS from 'exceljs';
+import {Readable} from 'node:stream';
 
 const root = new URL('../', import.meta.url);
 const index = JSON.parse(await readFile(new URL('data/index.json', root), 'utf8'));
@@ -60,13 +61,21 @@ test('actual viewer: search, multi-filters, pagination, detail tabs, links, CSV 
   assert.equal(Number(q('result-count').querySelector('strong').textContent),searched.length);
   check('grades-E0');check('grades-E2');check('risks-high');
   const matches = searched.filter(j=>(j.grades.E0>0||j.grades.E2>0)&&j.risks.high>0);
+  const expectedClaims = [];
+  for(const row of matches){
+    const detail=JSON.parse(await readFile(new URL('data/'+row.detail,root),'utf8'));
+    expectedClaims.push(...detail.claims.filter(c=>['E0','E2'].includes(c.suggested.evidence)&&c.suggested.risk_level==='high'));
+  }
+  assert.ok(expectedClaims.length>0);
   assert.ok(matches.length>0);
   assert.equal(Number(q('result-count').querySelector('strong').textContent),matches.length);
   q('download-button').click();
   await waitFor(()=>downloads.length===1&&downloads[0].filename,'CSV download');
   const csv = await downloads[0].blob.text();
-  for(const row of matches) assert.ok(csv.includes(row.video_id));
+  for(const claim of expectedClaims) assert.ok(csv.includes(claim.id));
   for(const row of index.jobs.filter(j=>!matches.includes(j))) assert.ok(!csv.includes('"'+row.id+'"'));
+  const csvBook=new ExcelJS.Workbook();const csvSheet=await csvBook.csv.read(Readable.from([csv]));
+  assert.equal(csvSheet.rowCount,expectedClaims.length+1);
   assert.ok(downloads[0].filename.endsWith('.csv'));
 
   await waitFor(()=>!q('download-button').disabled,'CSV completed');
@@ -74,10 +83,15 @@ test('actual viewer: search, multi-filters, pagination, detail tabs, links, CSV 
   await waitFor(()=>downloads.length===2&&downloads[1].filename,'XLSX download');
   const book = new ExcelJS.Workbook();
   await book.xlsx.load(await downloads[1].blob.arrayBuffer());
-  assert.equal(book.getWorksheet('영상 목록').rowCount,matches.length+1);
-  assert.equal(book.getWorksheet('주장 상세').rowCount,matches.reduce((sum,j)=>sum+j.claim_count,0)+1);
-  assert.equal(book.getWorksheet('영상 목록').getCell('A2').value,matches[0].metadata.title);
-  assert.equal(book.getWorksheet('영상 목록').views[0].ySplit,1);
+  const summary=book.getWorksheet('주장 목록'),full=book.getWorksheet('분류 상세');
+  assert.equal(summary.rowCount,expectedClaims.length+1);
+  assert.equal(full.rowCount,expectedClaims.length+1);
+  assert.equal(summary.views[0].ySplit,1);
+  assert.deepEqual(summary.getRow(1).values,csvSheet.getRow(1).values);
+  for(let i=2;i<=summary.rowCount;i++){
+    assert.equal(summary.getCell(i,4).value,'E2');assert.equal(summary.getCell(i,5).value,'높음');
+    assert.ok(summary.getCell(i,2).value);assert.ok(summary.getCell(i,3).value);
+  }
 
   d.querySelector('#video-rows a.video-title').click();
   await waitFor(()=>q('detail-panel'),'detail loaded');
@@ -102,6 +116,18 @@ test('actual viewer: search, multi-filters, pagination, detail tabs, links, CSV 
   await waitFor(()=>downloads.length===3&&downloads[2].filename,'all filtered pages exported');
   const allPagesCsv=await downloads[2].blob.text();
   for(const row of noClaims) assert.ok(allPagesCsv.includes('"'+row.id+'"'));
+  const noneBook=new ExcelJS.Workbook();const noneSheet=await noneBook.csv.read(Readable.from([allPagesCsv]));
+  assert.equal(noneSheet.rowCount,noClaims.length+1);
+  assert.equal(noneSheet.getCell('B2').value,'분류 없음');assert.equal(noneSheet.getCell('D2').value,'분류 없음');
+  await waitFor(()=>!q('download-button').disabled,'unclassified CSV completed');
+  change('download-format','xlsx');q('download-button').click();
+  await waitFor(()=>downloads.length===4&&downloads[3].filename,'unclassified XLSX');
+  const noneXlsx=new ExcelJS.Workbook();await noneXlsx.xlsx.load(await downloads[3].blob.arrayBuffer());
+  for(const sheetName of ['주장 목록','분류 상세']){
+    const sheet=noneXlsx.getWorksheet(sheetName);assert.equal(sheet.rowCount,noClaims.length+1);
+    assert.equal(sheet.getCell('B2').value,'분류 없음');assert.equal(sheet.getCell('D2').value,'분류 없음');
+    assert.equal(sheet.getCell('C2').value,'');assert.equal(sheet.getCell('E2').value,'');
+  }
   q('page-size').value='100';q('page-size').dispatchEvent(new w.Event('change',{bubbles:true}));
   assert.equal(d.querySelectorAll('#video-rows tr').length,noClaims.length);
   change('title-search','존재하지않는제목_테스트');
@@ -128,10 +154,10 @@ test('XLSX preserves long strings, formula-like text, numeric zero, and absent v
   const row = {id:'test',video_id:'abcdefghijk',metadata:{title:'=SUM(A1:A2)',view_count:0},status:'completed',claim_count:1,grades:{E2:1},risks:{low:1}};
   await w.Exporter.exportRows([row],'xlsx',async()=>({...row,claims:[{id:'claim',suggested:{claim_text:long},occurrences:[],review_status:'pending_manual_review',validation_report:{warnings:[]}}]}));
   const workbook = new ExcelJS.Workbook();await workbook.xlsx.load(await blob.arrayBuffer());
-  const videos=workbook.getWorksheet('영상 목록'),claims=workbook.getWorksheet('주장 상세');
+  const videos=workbook.getWorksheet('주장 목록'),claims=workbook.getWorksheet('분류 상세');
   assert.equal(videos.getCell('A2').value,'=SUM(A1:A2)');assert.equal(videos.getCell('A2').type,ExcelJS.ValueType.String);
-  assert.equal(videos.getCell('F2').value,0);
-  assert.equal(videos.getCell('G2').value,'');
+  assert.equal(videos.getCell('J2').value,0);
+  assert.equal(videos.getCell('K2').value,'');
   let full='';claims.getRow(1).eachCell((cell,i)=>{if(String(cell.value).startsWith('AI 제안 · 원문 인용'))full+=claims.getRow(2).getCell(i).value;});
   assert.equal(full,long);
   w.close();

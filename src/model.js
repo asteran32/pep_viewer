@@ -61,14 +61,6 @@ export function value(input) {
   if (typeof input === 'object') return Object.entries(input).map(([key, item]) => `${fields[key] || key}: ${value(item)}`).join('\n');
   return String(input);
 }
-const summary = (counts, names) => Object.entries(counts || {}).filter(([, count]) => count > 0).map(([key, count]) => `${names[key] || key} ${count}건`).join('; ');
-export const videoHeaders = ['영상 제목','YouTube URL','영상 ID','채널','게시일','조회수','좋아요','댓글 수','영상 길이(초)','분석 상태','주장 수','근거 분류','위험도','검토 경고 수','분석 요청일','분석 이력 ID','수집 검색어'];
-export function videoValues(row) {
-  return [title(row), youtubeUrl(row.video_id), row.video_id, channel(row), row.metadata?.published_at ?? '',
-    row.metadata?.view_count ?? '', row.metadata?.like_count ?? '', row.metadata?.comment_count ?? '', row.metadata?.duration ?? '',
-    statusNames[row.status] || row.status, row.claim_count, summary(row.grades, gradeNames) || grades(row).map(key => gradeNames[key] || key).join('; '),
-    summary(row.risks, riskNames), row.warning_count ?? 0, row.created_at, entryId(row), row.query ?? ''];
-}
 export function csvText(headers, rows) {
   const cell = input => {
     let text = input == null ? '' : String(input);
@@ -77,14 +69,37 @@ export function csvText(headers, rows) {
   };
   return '\ufeff' + [headers, ...rows].map(row => row.map(cell).join(',')).join('\r\n') + '\r\n';
 }
-export function claimTable(details) {
-  const keys = [...new Set(details.flatMap(job => job.claims.flatMap(claim => [...Object.keys(claim.suggested), ...Object.keys(claim.reviewed || {})])))];
-  const headers = ['영상 제목','YouTube URL','영상 ID','분석 이력 ID','주장 ID','검토 상태','영상 구간','검토 경고',
-    ...keys.map(key => 'AI 제안 · ' + (fields[key] || key)), ...keys.map(key => '사람 확정 · ' + (fields[key] || key))];
+export const claimHeaders = ['영상 제목','주장','증거 전사 자료','근거','위험도','YouTube URL','영상 ID','채널','게시일','조회수','좋아요','댓글 수','분석 상태','분석 요청일','분석 이력 ID','주장 ID','검토 상태'];
+export function claimQuote(claim) {
+  const quotes = [...new Set((claim.occurrences || []).map(item => item.source_quote).filter(text => typeof text === 'string' && text.trim()))];
+  return quotes.length ? quotes.join('\n') : claim.suggested.claim_text || '';
+}
+export function claimTable(jobs, {grades: selectedGrades = [], risks = [], detailed = false} = {}) {
+  const records = [], seen = new Set();
+  for (const job of jobs) {
+    const key = job.id;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const claims = job.claims || [];
+    if (!claims.length) {
+      if (!risks.length && (!selectedGrades.length || grades(job).some(grade => selectedGrades.includes(grade)))) records.push({job, claim:null});
+      continue;
+    }
+    for (const claim of claims) {
+      if ((!selectedGrades.length || selectedGrades.includes(claim.suggested.evidence)) && (!risks.length || risks.includes(claim.suggested.risk_level))) records.push({job, claim});
+    }
+  }
+  const keys = detailed ? [...new Set(records.flatMap(({claim}) => claim ? [...Object.keys(claim.suggested), ...Object.keys(claim.reviewed || {})] : []))] : [];
+  const headers = [...claimHeaders, ...(detailed ? ['영상 구간','검토 경고', ...keys.map(key => 'AI 제안 · ' + (fields[key] || key)), ...keys.map(key => '사람 확정 · ' + (fields[key] || key))] : [])];
   const cell = input => input == null ? '' : typeof input === 'object' ? JSON.stringify(input) : input;
-  const rows = details.flatMap(job => job.claims.map(claim => [title(job), youtubeUrl(job.video_id), job.video_id, job.id, claim.id,
-    claim.review_status === 'reviewed' ? '검토 확정' : '검토 대기', JSON.stringify(claim.occurrences),
-    claim.validation_report?.warnings.map(w => w.message).join('\n') || '',
-    ...keys.map(key => cell(claim.suggested[key])), ...keys.map(key => cell(claim.reviewed?.[key]))]));
-  return {headers, rows};
+  const rows = records.map(({job, claim}) => {
+    const labels = claim?.suggested || {}, m = job.metadata || {};
+    const core = [title(job), claim ? labels.claim_paraphrase || labels.claim_text || '' : '분류 없음', claim ? claimQuote(claim) : '',
+      claim ? gradeNames[labels.evidence] || labels.evidence || '' : '분류 없음', riskNames[labels.risk_level] || labels.risk_level || '',
+      youtubeUrl(job.video_id), job.video_id, channel(job), m.published_at ?? '', m.view_count ?? '', m.like_count ?? '', m.comment_count ?? '',
+      statusNames[job.status] || job.status, job.created_at || '', job.id, claim?.id || '', claim ? claim.review_status === 'reviewed' ? '검토 확정' : '검토 대기' : ''];
+    return detailed ? [...core, claim ? JSON.stringify(claim.occurrences || []) : '', claim?.validation_report?.warnings?.map(w => w.message).join('\n') || '',
+      ...keys.map(key => cell(labels[key])), ...keys.map(key => cell(claim?.reviewed?.[key]))] : core;
+  });
+  return {headers, rows, claimCount:records.filter(record => record.claim).length, unclassifiedCount:records.filter(record => !record.claim).length};
 }

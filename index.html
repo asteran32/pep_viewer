@@ -33,7 +33,7 @@
       <div id="video-panel" role="tabpanel" aria-labelledby="tab-jobs" tabindex="0"><div class="table-scroll"><table class="video-table"><caption class="sr-only">영상 분석 결과. 영상 제목을 누르면 상세 결과가 열립니다.</caption><thead><tr><th class="row-no" scope="col">번호</th><th class="video-column" scope="col">영상 · 채널</th><th scope="col">근거 분류</th><th scope="col">위험도</th><th class="numeric" scope="col">주장 수</th><th class="numeric" scope="col">조회수</th><th scope="col" id="date-heading">분석 요청일</th></tr></thead><tbody id="video-rows"></tbody></table></div><div id="empty-state" class="empty-state" hidden></div></div>
       <div class="table-bottom"><p id="page-summary">—</p><nav class="pagination" aria-label="영상 목록 페이지"><button id="previous-page" aria-label="이전 페이지" disabled>←</button><span id="page-number">1 / 1</span><button id="next-page" aria-label="다음 페이지" disabled>→</button></nav><label class="page-size">페이지당 <select id="page-size" aria-label="페이지당 영상 수"><option>20</option><option>50</option><option>100</option></select>개</label></div>
     </section>
-    <p class="filter-help">근거·위험도 필터는 해당 등급의 주장이 하나 이상 있는 영상을 표시합니다. 다운로드에는 현재 검색·필터에 맞는 전체 영상이 포함됩니다.</p>
+    <p class="filter-help">다운로드는 검색·필터에 맞는 주장마다 한 행입니다. 근거·위험도는 같은 주장에 함께 적용하며, 주장이 없는 영상은 ‘분류 없음’ 행으로 남깁니다.</p>
     <p id="download-notice" class="download-notice" role="status" aria-live="polite"></p>
     <footer class="site-footer"><span>PEP · 반려동물 영양 주장 분석</span><span>저장된 결과 열람용 · AI 제안과 사람 확정 구분</span></footer>
   </main>
