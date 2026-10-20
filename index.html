@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#174e40">
+  <meta name="description" content="반려동물 영양 주장 분석 결과를 검색하고 분류·위험도별로 살펴보는 PEP 공개 데이터 뷰어">
+  <title>PEP Viewer · 영상 분석 데이터</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace">데이터 테이블로 이동</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="PEP Viewer 홈"><span class="brand-mark" aria-hidden="true">p</span><span>PEP <span class="brand-light">Viewer</span></span></a>
+    <span class="header-divider"></span><nav class="header-nav" aria-label="주요 메뉴"><a href="./index.html" aria-current="page">공개 데이터</a><a href="./codebook.html">코드북</a></nav>
+    <span class="readonly"><span aria-hidden="true">◦</span> 읽기 전용</span>
+  </header>
+  <main id="workspace" tabindex="-1">
+    <section class="workspace-heading">
+      <div><p class="eyebrow">영상 분석 아카이브</p><h1>영상 분석 데이터</h1><p class="subtitle">반려동물 영양 주장과 저장된 분류 결과를 살펴보세요.</p></div>
+      <p class="updated">데이터 갱신 <time id="updated-at">—</time></p>
+    </section>
+    <div id="stats" class="stats" aria-label="전체 분석 통계"></div>
+    <section class="workspace" aria-label="영상 데이터">
+      <div class="workspace-top"><div class="dataset-tabs" role="tablist" aria-label="데이터 종류"><button id="tab-jobs" type="button" role="tab" aria-selected="true" aria-controls="video-panel" data-dataset="jobs">분석 이력 <span id="jobs-count">—</span></button><button id="tab-collected" type="button" role="tab" aria-selected="false" aria-controls="video-panel" tabindex="-1" data-dataset="collected">수집 영상 <span id="collected-count">—</span></button></div><span class="basis">주장별 AI 제안 기준</span></div>
+      <div class="toolbar">
+        <label class="search"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="title-search" type="search" placeholder="영상 제목으로 검색" aria-label="영상 제목 검색" autocomplete="off"><kbd aria-hidden="true">/</kbd></label>
+        <div class="download-controls"><label class="sr-only" for="download-format">다운로드 파일 형식</label><select id="download-format"><option value="csv">CSV</option><option value="xlsx">XLSX</option></select><button id="download-button" class="primary" disabled><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2v10m-4-4 4 4 4-4M3 13v4h14v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>결과 다운로드</span></button></div>
+      </div>
+      <div class="filterbar"><div class="filters" id="filters"></div><div class="sort"><label for="sort-order">정렬</label><select id="sort-order"><option value="newest">최근 분석순</option><option value="title">제목순</option><option value="views">조회수순</option><option value="claims">주장 많은순</option></select></div></div>
+      <div class="results-line"><p id="result-count" role="status" aria-live="polite">데이터를 불러오는 중입니다.</p><button id="reset-filters" class="text-button" hidden>필터 초기화 ↺</button></div>
+      <div id="video-panel" role="tabpanel" aria-labelledby="tab-jobs" tabindex="0"><div class="table-scroll"><table class="video-table"><caption class="sr-only">영상 분석 결과. 영상 제목을 누르면 상세 결과가 열립니다.</caption><thead><tr><th class="row-no" scope="col">번호</th><th class="video-column" scope="col">영상 · 채널</th><th scope="col">근거 분류</th><th scope="col">위험도</th><th class="numeric" scope="col">주장 수</th><th class="numeric" scope="col">조회수</th><th scope="col" id="date-heading">분석 요청일</th></tr></thead><tbody id="video-rows"></tbody></table></div><div id="empty-state" class="empty-state" hidden></div></div>
+      <div class="table-bottom"><p id="page-summary">—</p><nav class="pagination" aria-label="영상 목록 페이지"><button id="previous-page" aria-label="이전 페이지" disabled>←</button><span id="page-number">1 / 1</span><button id="next-page" aria-label="다음 페이지" disabled>→</button></nav><label class="page-size">페이지당 <select id="page-size" aria-label="페이지당 영상 수"><option>20</option><option>50</option><option>100</option></select>개</label></div>
+    </section>
+    <p class="filter-help">근거·위험도 필터는 해당 등급의 주장이 하나 이상 있는 영상을 표시합니다. 다운로드에는 현재 검색·필터에 맞는 전체 영상이 포함됩니다.</p>
+    <p id="download-notice" class="download-notice" role="status" aria-live="polite"></p>
+    <footer class="site-footer"><span>PEP · 반려동물 영양 주장 분석</span><span>저장된 결과 열람용 · AI 제안과 사람 확정 구분</span></footer>
+  </main>
+  <dialog id="result-dialog" aria-labelledby="detail-title"><div class="dialog-header"><span class="eyebrow">결과 보기</span><button id="close-detail" class="icon-button" aria-label="상세 결과 닫기">✕</button></div><div id="detail-content"></div></dialog>
+  <noscript>이 뷰어를 사용하려면 브라우저의 JavaScript를 활성화하세요.</noscript>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

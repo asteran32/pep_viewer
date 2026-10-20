@@ -1,0 +1,86 @@
+# PEP 공개 데이터 뷰어
+
+기존 PEP 결과를 정적 HTML·CSS·JavaScript와 JSON으로 제공하는 읽기 전용 뷰어입니다. 서버 API, API 키, Python, Node.js가 **방문자 또는 배포 서버에서 실행될 필요가 없습니다**. 원본 프로젝트와 별도로 운영할 수 있습니다.
+
+## 로컬 실행
+
+프로젝트 루트에서:
+
+```sh
+python3 -m http.server 8790 --bind 127.0.0.1 --directory github_page
+```
+
+브라우저에서 <http://127.0.0.1:8790>을 엽니다. `index.html`을 파일로 직접 열면 브라우저가 JSON 요청을 차단할 수 있습니다.
+
+## 제공 기능
+
+- 영상 제목 부분 검색, 근거 분류·위험도 복수 선택, 정렬, 페이지 구분
+- 분석 이력·수집 영상 조회, 제목 클릭으로 상세 결과 열기
+- 상세 창의 주장 분류·영상 분류·전사문·저장 댓글·영상 정보
+- 주장 상세의 전체 AI 제안, 사람 확정값, 검토 경고·이력
+- 상세 창 테이블 위의 **원본 영상 보기**, 확인된 시간의 YouTube 구간 링크
+- 헤더의 **코드북**에서 코드북 2.2 전문·목차와 원문 다운로드
+- 검색·필터에 맞는 **전체 영상**의 CSV 또는 XLSX 다운로드 (현재 페이지만으로 제한하지 않음)
+
+필터는 같은 항목 내 OR, 검색·근거·위험도 사이 AND입니다. 근거와 위험도는 영상에 해당 등급의 주장이 하나 이상 있는지를 각각 판정하며, 두 조건이 같은 주장에 해당해야 하는 것은 아닙니다. E0–E5는 근거 분류이며 위험도와 별도입니다.
+
+**분류 없음**은 완료된 분석의 공개 주장이 0개인 경우입니다. 실패·미분석과 CSV의 주장 분류 미제공은 별도로 구분합니다. 필터와 목록은 **저장된 AI 제안** 기준이며, 사람 확정값은 주장 상세에서 구분해 표시합니다. 같은 영상의 여러 분석은 별도 이력으로 보존합니다. 수집 영상은 해당 영상의 가장 최근 공개 분석과 연결합니다.
+
+CSV는 영상당 한 행이며 UTF-8 BOM·줄바꿈·따옴표를 지원합니다. XLSX에는 동일한 **영상 목록**과 해당 영상의 **모든 주장 상세**가 별도 시트로 들어갑니다. XLSX의 주장 상세는 영상 필터로 다시 걸러내지 않습니다. 숫자·결측·실제 0을 구분하고 첫 행 고정·자동 필터를 설정합니다. 엑셀의 셀 길이 제한을 넘는 텍스트는 계속 열로 보존합니다.
+
+## 데이터 갱신
+
+원본 프로젝트 루트에서 Python 표준 라이브러리만으로 실행합니다.
+
+```sh
+python3 github_page/scripts/export_data.py
+```
+
+SQLite를 읽기 전용으로 조회하고 전사 파일을 함께 읽습니다. 원본 DB·전사·분류 파일을 변경하거나 외부 API를 호출하지 않습니다. 삭제된 이력·주장은 제외하며 설정·키·작업 오류·프롬프트·모델 원응답·오디오를 배포하지 않습니다. 확정 전사·부분 전사와 캐시된 구간에서 복원된 텍스트를 보존합니다. 데이터 파일을 변경 중인 작업이 끝난 뒤 내보내는 것을 권장합니다.
+
+`data/index.json`은 목록과 상세 파일 경로를 담습니다. 상세는 내용 해시별 `data/snapshots/<hash>/jobs/`에 저장되고, 목록은 마지막에 교체됩니다. 갱신 시 오래된 내보내기 스냅샷은 제거됩니다. 같은 커밋에 전체 `data/` 변경과 삭제를 함께 반영하세요.
+
+다른 프로젝트 경로를 읽는 경우:
+
+```sh
+python3 github_page/scripts/export_data.py --root /path/to/pep-web --output github_page/data
+```
+
+## GitHub Pages 배포
+
+코드북 원본이 바뀌면 `python3 github_page/scripts/export_codebook.py`로 정적 코드북 페이지와 다운로드 원문을 갱신합니다.
+
+**별도 저장소:** `github_page/` 안의 내용 전체를 새 저장소의 루트에 넣습니다 (`index.html`과 `.github/` 포함). `Settings → Pages → Source → GitHub Actions`를 선택하고 `main`에 반영하면 포함된 워크플로가 배포합니다. npm 설치나 빌드 단계가 없습니다.
+
+**원본 저장소 안에서 배포:** `github_page/.github/workflows/pages.yml`을 저장소 루트의 `.github/workflows/pep-viewer.yml`로 복사하고 같은 Pages 설정을 사용합니다. 워크플로는 `github_page/`를 감지하며, 공개 화면·JSON·필요한 라이브러리만 업로드합니다. 원본 DB와 `.env`는 배포하지 않습니다.
+
+모든 자산과 JSON 경로는 상대 경로여서 `/저장소명/` 하위 경로에서도 동작합니다. 데이터 갱신 후 다시 커밋하면 재배포됩니다. 이 작업에서는 원격 저장소 생성·업로드·실제 배포를 수행하지 않았습니다.
+
+참고: [GitHub Pages 생성](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site). 공개 사이트에 배포한 JSON은 방문자가 다운로드할 수 있습니다.
+
+## 라이브러리와 검증
+
+XLSX 생성에는 동봉된 [ExcelJS 4.4.0](https://github.com/exceljs/exceljs/tree/v4.4.0)의 브라우저 번들만 사용합니다. MIT 라이선스는 `vendor/exceljs.LICENSE`에 있습니다. 외부 CDN 요청은 없습니다. CSV 다운로드에는 별도 라이브러리가 필요 없습니다.
+
+라이브러리를 다시 준비해야 할 때만:
+
+```sh
+cd github_page
+npm ci --ignore-scripts
+npm run vendor
+```
+
+모델·실제 UI 이벤트·CSV/XLSX 파일·내보내기 검증 (검증용 npm 의존성 설치 후):
+
+```sh
+cd github_page
+npm test
+```
+
+브라우저 검증 스크립트는 `tests/browser.cjs`입니다. Playwright와 Chrome이 설치된 환경에서 실행합니다. 정적 파일을 가상 URL에 제공하므로 로컬 서버 없이 하위 경로·데스크톱·모바일·다운로드를 검사합니다. 화면 캡처와 다운로드는 `artifacts/`에 저장합니다.
+
+```sh
+PLAYWRIGHT_MODULE=/path/to/node_modules/playwright node tests/browser.cjs
+```
+
+코드·수집·전사·분류·삭제·검토 저장 기능은 포함하지 않습니다.
