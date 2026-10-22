@@ -101,17 +101,15 @@ function renderFields(input) {
 function claimExpanded(claim) {
   const warnings = claim.validation_report?.warnings || [];
   return `<tr class="expanded-row"><td colspan="7"><div class="claim-expanded">
-    <p class="detail-eyebrow">원문 인용 · AI 제안</p><blockquote>${escape(claim.suggested.claim_text || '원문 인용 없음')}</blockquote>
+    <p class="detail-eyebrow">원문 인용 · gpt-6 재검토</p><blockquote>${escape(claim.suggested.claim_text || '원문 인용 없음')}</blockquote>
     ${warnings.length ? `<div class="warning-notice"><strong>검토 경고 ${n(warnings.length)}건</strong><ul>${warnings.map(w => `<li>${escape(w.message)}</li>`).join('')}</ul></div>` : ''}
     ${(claim.occurrences || []).flatMap(item => item.segment_ids || []).length ? `<div class="source-segments">전사 연결 ${(claim.occurrences || []).flatMap(item => item.segment_ids || []).map(id => `<button class="text-button" data-segment="${escape(id)}">${escape(id)} ↗</button>`).join('')}</div>` : ''}
-    <h4>AI 제안</h4>${renderFields(claim.suggested)}
-    <h4>사람 확정</h4>${claim.reviewed ? renderFields(claim.reviewed) : '<p class="muted">저장된 사람 확정값이 없습니다.</p>'}
-    ${claim.reviews?.length ? `<h4>검토 이력</h4>${claim.reviews.map(review => `<p class="review-history"><strong>${escape(review.reviewer)}</strong> · ${date(review.created_at, true)}<br>${escape(review.reason)}</p>`).join('')}` : ''}
+    <h4>gpt-6 분류 · 판정 근거</h4>${renderFields(claim.suggested)}
   </div></td></tr>`;
 }
 function claimsPanel(job) {
   const claims = job.claims || [];
-  if (!claims.length) return `<div class="empty-state">${empty(job.status === 'completed' ? '분류된 주장이 없습니다' : '저장된 주장 분류가 없습니다', job.status === 'completed' ? '이 분석에서 추출된 주장은 0개입니다. 영상 분류와 전사문은 다른 탭에서 확인할 수 있습니다.' : '영상 분류와 전사문이 있는 경우 해당 탭에서 확인할 수 있습니다.')}</div>`;
+  if (!claims.length) return `<div class="empty-state">${empty(job.status === 'completed' ? '분류된 주장이 없습니다' : '저장된 주장 분류가 없습니다', job.status === 'completed' ? '이 분석에서 추출된 주장은 0개입니다. 저장된 전사문은 다른 탭에서 확인할 수 있습니다.' : '전사문이 있는 경우 해당 탭에서 확인할 수 있습니다.')}</div>`;
   return `<div class="detail-context"><span>전체 주장 <strong>${n(claims.length)}</strong>개</span><span>‘상세’를 누르면 모든 분류 필드와 검토 경고를 확인할 수 있습니다.</span></div>
     <div class="table-scroll"><table class="claims-table"><caption class="sr-only">선택한 영상의 주장 분류</caption><thead><tr><th class="row-no">번호</th><th>주장</th><th>영상 구간</th><th>근거</th><th>위험도</th><th>검토 상태</th><th>상세</th></tr></thead><tbody>${claims.map((claim, i) => {
       const occurrence = claim.occurrences?.[0];
@@ -166,7 +164,7 @@ async function handleHash() {
     const job = await loadDetail(row.job_id || row.id);
     if (serial !== detailSerial) return;
     activeDetail = job || {...row, claims:[], transcript:null, video_assessment:null, comments:null};
-    const tabs = [['claims', '주장 분류', activeDetail.claim_count], ['assessment', '영상 분류'], ['transcript', '전사문'], ['comments', '댓글'], ['metadata', '영상 정보']];
+    const tabs = [['claims', '주장 분류', activeDetail.claim_count], ['transcript', '전사문'], ['comments', '댓글'], ['metadata', '영상 정보']];
     $('detail-content').innerHTML = `<div class="detail-heading"><h2 id="detail-title">${escape(title(activeDetail))}</h2><p>${escape(channel(activeDetail))}<span class="dot">·</span>${escape(statusNames[activeDetail.status] || activeDetail.status)}</p><div class="detail-heading-actions"><div class="badge-list">${gradeBadges(activeDetail)}${riskBadges(activeDetail)}</div>${sourceLink(activeDetail.video_id, '원본 영상 보기', undefined, 'source-button')}</div></div>
       <div class="detail-tabs" role="tablist" aria-label="상세 결과 종류">${tabs.map(([key, label, count]) => `<button id="detail-tab-${key}" role="tab" aria-selected="${detailTab === key}" aria-controls="detail-panel" tabindex="${detailTab === key ? 0 : -1}" data-detail-tab="${key}">${label}${count != null ? `<span>${n(count)}</span>` : ''}</button>`).join('')}</div><div id="detail-panel" role="tabpanel" tabindex="0" aria-labelledby="detail-tab-claims"></div>`;
     renderDetailPanel();

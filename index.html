@@ -23,7 +23,7 @@
     </section>
     <div id="stats" class="stats" aria-label="전체 분석 통계"></div>
     <section class="workspace" aria-label="영상 데이터">
-      <div class="workspace-top"><div class="dataset-tabs" role="tablist" aria-label="데이터 종류"><button id="tab-jobs" type="button" role="tab" aria-selected="true" aria-controls="video-panel" data-dataset="jobs">분석 이력 <span id="jobs-count">—</span></button><button id="tab-collected" type="button" role="tab" aria-selected="false" aria-controls="video-panel" tabindex="-1" data-dataset="collected">수집 영상 <span id="collected-count">—</span></button></div><span class="basis">주장별 AI 제안 기준</span></div>
+      <div class="workspace-top"><div class="dataset-tabs" role="tablist" aria-label="데이터 종류"><button id="tab-jobs" type="button" role="tab" aria-selected="true" aria-controls="video-panel" data-dataset="jobs">분석 이력 <span id="jobs-count">—</span></button><button id="tab-collected" type="button" role="tab" aria-selected="false" aria-controls="video-panel" tabindex="-1" data-dataset="collected">수집 영상 <span id="collected-count">—</span></button></div><span class="basis">gpt-6 분류 기준</span></div>
       <div class="toolbar">
         <label class="search"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="title-search" type="search" placeholder="영상 제목으로 검색" aria-label="영상 제목 검색" autocomplete="off"><kbd aria-hidden="true">/</kbd></label>
         <div class="download-controls"><label class="sr-only" for="download-format">다운로드 파일 형식</label><select id="download-format"><option value="csv">CSV</option><option value="xlsx">XLSX</option></select><button id="download-button" class="primary" disabled><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2v10m-4-4 4 4 4-4M3 13v4h14v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>결과 다운로드</span></button></div>
@@ -35,7 +35,7 @@
     </section>
     <p class="filter-help">다운로드는 검색·필터에 맞는 주장마다 한 행입니다. 근거·위험도는 같은 주장에 함께 적용하며, 주장이 없는 영상은 ‘분류 없음’ 행으로 남깁니다.</p>
     <p id="download-notice" class="download-notice" role="status" aria-live="polite"></p>
-    <footer class="site-footer"><span>PEP · 반려동물 영양 주장 분석</span><span>저장된 결과 열람용 · AI 제안과 사람 확정 구분</span></footer>
+    <footer class="site-footer"><span>PEP · 반려동물 영양 주장 분석</span><span>gpt-6 재검토 결과 · 사람 검토 대기</span></footer>
   </main>
   <dialog id="result-dialog" aria-labelledby="detail-title"><div class="dialog-header"><span class="eyebrow">결과 보기</span><button id="close-detail" class="icon-button" aria-label="상세 결과 닫기">✕</button></div><div id="detail-content"></div></dialog>
   <noscript>이 뷰어를 사용하려면 브라우저의 JavaScript를 활성화하세요.</noscript>

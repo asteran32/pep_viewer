@@ -2,6 +2,7 @@ export const riskNames = {low: '낮음', moderate: '중간', high: '높음', cri
 export const gradeNames = {E0: 'E0', E1: 'E1', E2: 'E2', E3: 'E3', E4: 'E4', E5: 'E5', not_assessable: '판정 불가', not_applicable_out_of_scope: '범위 밖', __none__: '분류 없음', __imported__: '주장 분류 미제공', __unavailable__: '분류 미확정'};
 export const statusNames = {completed: '분석 완료', imported: 'CSV 가져옴', failed: '분석 실패', cancelled: '취소됨', interrupted: '중단됨', not_analyzed: '미분석', queued: '대기 중'};
 export const fields = {
+  classification_basis:'분류 기준', claim_unit_status:'주장 단위 코드', claim_unit_label:'주장 단위 판정', duplicate_of_claim_id:'중복 기준 주장 ID', coding_date:'재검토일', codebook_version:'코드북 버전', e0_reference_detail:'E0 원칙 상세',
   claim_text:'원문 인용',claim_paraphrase:'주장 요약',claim_source:'원문 출처',context_qualifier:'조건 · 맥락',
   claim_eligibility:'주장 적격성',claim_target:'주장 대상',nutrition_claim_mechanism:'영양 주장 기전',
   nutrition_claim_mechanism_other_specified:'기타 기전',claim_orientation:'주장 방향',claim_strength:'주장 강도',
@@ -89,8 +90,8 @@ export function claimTable(jobs, {grades: selectedGrades = [], risks = [], detai
       if ((!selectedGrades.length || selectedGrades.includes(claim.suggested.evidence)) && (!risks.length || risks.includes(claim.suggested.risk_level))) records.push({job, claim});
     }
   }
-  const keys = detailed ? [...new Set(records.flatMap(({claim}) => claim ? [...Object.keys(claim.suggested), ...Object.keys(claim.reviewed || {})] : []))] : [];
-  const headers = [...claimHeaders, ...(detailed ? ['영상 구간','검토 경고', ...keys.map(key => 'AI 제안 · ' + (fields[key] || key)), ...keys.map(key => '사람 확정 · ' + (fields[key] || key))] : [])];
+  const keys = detailed ? [...new Set(records.flatMap(({claim}) => claim ? [...Object.keys(claim.suggested)] : []))] : [];
+  const headers = [...claimHeaders, '분류 기준','주장 단위 판정','판정 근거', ...(detailed ? ['영상 구간','검토 경고', ...keys.map(key => 'gpt-6 · ' + (fields[key] || key))] : [])];
   const cell = input => input == null ? '' : typeof input === 'object' ? JSON.stringify(input) : input;
   const rows = records.map(({job, claim}) => {
     const labels = claim?.suggested || {}, m = job.metadata || {};
@@ -98,8 +99,9 @@ export function claimTable(jobs, {grades: selectedGrades = [], risks = [], detai
       claim ? gradeNames[labels.evidence] || labels.evidence || '' : '분류 없음', riskNames[labels.risk_level] || labels.risk_level || '',
       youtubeUrl(job.video_id), job.video_id, channel(job), m.published_at ?? '', m.view_count ?? '', m.like_count ?? '', m.comment_count ?? '',
       statusNames[job.status] || job.status, job.created_at || '', job.id, claim?.id || '', claim ? claim.review_status === 'reviewed' ? '검토 확정' : '검토 대기' : ''];
+    core.push(claim ? 'gpt-6' : '', labels.claim_unit_label || '', labels.evidence_rationale || '');
     return detailed ? [...core, claim ? JSON.stringify(claim.occurrences || []) : '', claim?.validation_report?.warnings?.map(w => w.message).join('\n') || '',
-      ...keys.map(key => cell(labels[key])), ...keys.map(key => cell(claim?.reviewed?.[key]))] : core;
+      ...keys.map(key => cell(labels[key]))] : core;
   });
   return {headers, rows, claimCount:records.filter(record => record.claim).length, unclassifiedCount:records.filter(record => !record.claim).length};
 }
