@@ -101,8 +101,8 @@ test('actual viewer: search, multi-filters, pagination, detail tabs, links, CSV 
   assert.equal(link.href,`https://www.youtube.com/watch?v=${matches[0].video_id}`);
   assert.ok(link.textContent.includes('원본 영상 보기'));
   const first = d.querySelector('[data-claim]');
-  first.click();assert.ok(d.querySelector('.claim-expanded').textContent.includes('AI 제안'));
-  q('detail-tab-assessment').click();assert.ok(d.querySelector('.field-list'));
+  first.click();assert.ok(d.querySelector('.claim-expanded').textContent.includes('gpt-6'));
+  assert.equal(q('detail-tab-assessment'),null);
   q('detail-tab-transcript').click();assert.ok(d.querySelectorAll('.transcript-text').length>0);
   q('detail-tab-comments').click();assert.ok(q('detail-panel').textContent.trim().length>0);
   q('detail-tab-metadata').click();assert.ok(q('detail-panel').textContent.includes('영상 ID'));
@@ -141,6 +141,59 @@ test('actual viewer: search, multi-filters, pagination, detail tabs, links, CSV 
   dom.window.close();
 });
 
+for (const stale of [true, false]) test(stale ? 'retired snapshot recovers from fresh index and all 96 detail views render' : 'missing upload reports the exact path without looping', async () => {
+  const errors = [], requests = [];
+  const virtualConsole = new VirtualConsole();
+  virtualConsole.on('jsdomError', error => errors.push(error.message));
+  const dom = new JSDOM(html, {url:'https://pep-viewer.test/research/',runScripts:'dangerously',pretendToBeVisual:true,virtualConsole});
+  const w = dom.window, d = w.document;
+  let indexReads = 0;
+  const initial = JSON.parse(JSON.stringify(index));
+  if (stale) {
+    initial.snapshot = 'retired';
+    initial.jobs[0].detail = 'snapshots/retired/jobs/old.json';
+  }
+  w.fetch = async (input, options) => {
+    const path = new URL(input).pathname.replace('/research/', '');
+    requests.push(path);
+    if (path === 'data/index.json') {
+      assert.equal(options.cache, 'no-store');
+      return {ok:true,json:async()=>++indexReads === 1 ? initial : index};
+    }
+    if (path.includes('/retired/') || !stale) return {ok:false,status:404};
+    return {ok:true,json:async()=>JSON.parse(await readFile(new URL(path,root),'utf8'))};
+  };
+  w.CSS = {escape:input=>input};
+  w.matchMedia = ()=>({matches:true});
+  w.HTMLElement.prototype.scrollIntoView = ()=>{};
+  w.HTMLDialogElement.prototype.showModal = function(){this.open=true;};
+  w.HTMLDialogElement.prototype.close = function(){this.open=false;};
+  w.eval(code);
+  await waitFor(()=>d.querySelector('#video-rows a.video-title'),'list');
+  w.location.hash = '#result/jobs/' + index.jobs[0].id;
+  if (!stale) {
+    await waitFor(()=>d.querySelector('[data-retry-detail]'),'error');
+    assert.ok(d.getElementById('detail-content').textContent.includes(index.jobs[0].detail));
+    assert.ok(d.getElementById('detail-content').textContent.includes('업로드'));
+    assert.equal(indexReads,2);
+    assert.equal(requests.length,3);
+  } else {
+    await waitFor(()=>d.getElementById('detail-panel'),'recovered detail');
+    assert.equal(indexReads,2);
+    for (const job of index.jobs) {
+      w.location.hash = '#result/jobs/' + job.id;
+      await new Promise(resolve => w.setTimeout(resolve,0));
+      await waitFor(()=>d.getElementById('detail-panel') && d.getElementById('detail-title').textContent === (job.metadata.title || job.video_id),'detail '+job.id);
+      const claimIds = [...d.querySelectorAll('[data-claim]')].map(button => button.dataset.claim);
+      for (const id of claimIds) d.querySelector(`[data-claim="${id}"]`).click();
+      assert.equal(d.querySelectorAll('.claim-expanded').length,job.claim_count);
+      for (const tab of d.querySelectorAll('[data-detail-tab]')) tab.click();
+    }
+  }
+  assert.deepEqual(errors,[]);
+  w.close();
+});
+
 test('XLSX preserves long strings, formula-like text, numeric zero, and absent values', async () => {
   const w = new JSDOM('<html><head></head><body></body></html>',{url:'https://pep-viewer.test/research/',runScripts:'dangerously'}).window;
   w.Blob = Blob; w.TextEncoder=TextEncoder; w.TextDecoder=TextDecoder;
@@ -158,7 +211,7 @@ test('XLSX preserves long strings, formula-like text, numeric zero, and absent v
   assert.equal(videos.getCell('A2').value,'=SUM(A1:A2)');assert.equal(videos.getCell('A2').type,ExcelJS.ValueType.String);
   assert.equal(videos.getCell('J2').value,0);
   assert.equal(videos.getCell('K2').value,'');
-  let full='';claims.getRow(1).eachCell((cell,i)=>{if(String(cell.value).startsWith('AI 제안 · 원문 인용'))full+=claims.getRow(2).getCell(i).value;});
+  let full='';claims.getRow(1).eachCell((cell,i)=>{if(String(cell.value).startsWith('gpt-6 · 원문 인용'))full+=claims.getRow(2).getCell(i).value;});
   assert.equal(full,long);
   w.close();
 });

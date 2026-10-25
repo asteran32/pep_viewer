@@ -55,8 +55,9 @@ test('claim export uses one row per matching claim, preserving zero-claim videos
   assert.equal(onlyModerate.rows[0][onlyModerate.headers.indexOf('주장 ID')],'c2');
   assert.equal(claimTable([job],{grades:['E0'],risks:['moderate']}).rows.length,0);
   const detail=claimTable([job],{detailed:true});
-  assert.ok(detail.headers.includes('AI 제안 · 원문 인용'));
-  assert.ok(detail.headers.includes('사람 확정 · 근거 분류'));
+  assert.ok(detail.headers.includes('gpt-6 · 원문 인용'));
+  assert.ok(!detail.headers.some(header => header.startsWith('사람 확정')));
+  assert.ok(detail.headers.includes('판정 근거'));
 });
 test('filtering out all actual claims must not invent an unclassified row', () => {
   const result=claimTable([{...rows[0],claims:[{id:'one',suggested:{evidence:'E3',risk_level:'high'},occurrences:[]}]}],{grades:['__none__']});

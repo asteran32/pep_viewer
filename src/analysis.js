@@ -1,4 +1,5 @@
 // Progressive enhancement: the report, charts and downloads are static HTML.
+import './channel-analysis.js';
 const q = id => document.getElementById(id);
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.documentElement.classList.add('analysis-enhanced');
@@ -31,6 +32,9 @@ for (const [index, tab] of chartTabs.entries()) {
     selectChart(chartTabs[next]);
   });
 }
+const initialChart = new URLSearchParams(location.search).get('rq1');
+const initialTab = chartTabs.find(tab => tab.dataset.chartTab === initialChart);
+if (initialTab) selectChart(initialTab);
 
 for (const button of document.querySelectorAll('[data-expand-chart]')) {
   button.addEventListener('click', () => {
@@ -43,22 +47,33 @@ for (const button of document.querySelectorAll('[data-expand-chart]')) {
   });
 }
 
+function selectEvidenceMode(button) {
+  const mode = button.dataset.evidenceMode;
+  q('evidence-chart').dataset.mode = mode;
+  for (const control of document.querySelectorAll('[data-evidence-mode]')) {
+    control.setAttribute('aria-pressed', String(control === button));
+  }
+  const labels = mode === 'percent' ? ['0%', '25%', '50%', '75%', '100%'] : q('evidence-axis').dataset.countTicks.split(',');
+  q('evidence-axis').replaceChildren(...labels.map(label => {
+    const span = document.createElement('span');
+    span.textContent = label;
+    return span;
+  }));
+  q('evidence-mode-help').textContent = mode === 'percent'
+    ? '가로축: 각 근거 등급 안의 위험도 비율 (합계 100%). 막대 안 숫자는 주장 수, 오른쪽 비율은 전체 309개 중 비율입니다.'
+    : '가로축: 주장 수. 오른쪽은 등급별 전체 주장 수와 309개 중 비율입니다. 등급명·전체 건수 또는 위험도별 막대·건수를 누르면 해당 주장 목록으로 이동합니다.';
+}
 for (const button of document.querySelectorAll('[data-evidence-mode]')) {
-  button.addEventListener('click', () => {
-    const mode = button.dataset.evidenceMode;
-    q('evidence-chart').dataset.mode = mode;
-    for (const control of document.querySelectorAll('[data-evidence-mode]')) {
-      control.setAttribute('aria-pressed', String(control === button));
-    }
-    const labels = mode === 'percent' ? ['0%', '25%', '50%', '75%', '100%'] : q('evidence-axis').dataset.countTicks.split(',');
-    q('evidence-axis').replaceChildren(...labels.map(label => {
-      const span = document.createElement('span');
-      span.textContent = label;
-      return span;
-    }));
-    q('evidence-mode-help').textContent = mode === 'percent'
-      ? '가로축: 각 근거 등급 안의 위험도 비율 (합계 100%). 막대 안 숫자는 주장 수, 오른쪽 비율은 전체 309개 중 비율입니다.'
-      : '가로축: 주장 수. 오른쪽은 등급별 전체 주장 수와 309개 중 비율입니다. 등급을 누르면 위험도별 정확한 수치를 확인할 수 있습니다.';
+  button.addEventListener('click', () => selectEvidenceMode(button));
+}
+if (new URLSearchParams(location.search).get('rq2') === 'percent') {
+  selectEvidenceMode(document.querySelector('[data-evidence-mode="percent"]'));
+}
+for (const link of document.querySelectorAll('#evidence-chart a')) {
+  link.addEventListener('click', () => {
+    const target = new URL(link.href);
+    target.searchParams.set('mode', q('evidence-chart').dataset.mode);
+    link.href = target.href;
   });
 }
 
@@ -111,7 +126,7 @@ if (!reducedMotion && 'IntersectionObserver' in window) {
       observer.unobserve(entry.target);
     }
   }, {threshold: 0.12});
-  for (const chart of document.querySelectorAll('.bar-chart, .evidence-chart')) observer.observe(chart);
+  for (const chart of document.querySelectorAll('.bar-chart, .evidence-chart, .channel-distribution, .channel-composition-table, .channel-concentration-chart')) observer.observe(chart);
 }
 
 const dialog = q('figure-dialog');

@@ -1,4 +1,5 @@
 import importlib.util
+import hashlib
 import json
 from pathlib import Path
 import sqlite3
@@ -33,6 +34,11 @@ class ExportTests(unittest.TestCase):
             c.execute('INSERT INTO job_deletions VALUES (?)', ('retired',))
             for claim_id in ('visible', 'deleted'):
                 c.execute('INSERT INTO claims VALUES (?,?,?,?,?,?)', (claim_id,'active',0,json.dumps({'evidence':'E2','risk_level':'low'}),'[]','pending_manual_review'))
+            c.execute('ALTER TABLE claims ADD COLUMN "gpt-6"')
+            original = c.execute('SELECT suggested FROM claims WHERE id="visible"').fetchone()[0]
+            review = {'evidence':'E4','risk_level':'high','rationale':'새 판정 근거',
+                      'original_suggested_sha256':hashlib.sha256(original.encode()).hexdigest()}
+            c.execute('UPDATE claims SET "gpt-6"=? WHERE id="visible"',(json.dumps(review),))
             c.execute('INSERT INTO claim_deletions VALUES (?)',('deleted',))
             c.commit(); c.close()
             target = root / 'transcripts' / 'text'
@@ -45,8 +51,11 @@ class ExportTests(unittest.TestCase):
             index = json.loads((root / 'public' / 'index.json').read_text())
             job = index['jobs'][0]
             detail = json.loads((root / 'public' / job['detail']).read_text())
-            self.assertEqual(job['grades'],{'E2':1})
-            self.assertEqual(job['risks'],{'low':1})
+            self.assertEqual(job['grades'],{'E4':1})
+            self.assertEqual(job['risks'],{'high':1})
+            self.assertEqual(detail['claims'][0]['suggested']['evidence_rationale'],'새 판정 근거')
+            self.assertIsNone(detail['video_assessment'])
+            self.assertNotIn('original_evidence',json.dumps(detail))
             self.assertFalse(detail['transcript']['complete'])
             self.assertIsNone(detail['transcript']['segments'][0]['start'])
             self.assertEqual(detail['metadata']['view_count'],0)
@@ -57,10 +66,22 @@ class ExportTests(unittest.TestCase):
             # A refresh must remove the obsolete public snapshot, including old deleted content.
             old_path = root / 'public' / job['detail']
             c = sqlite3.connect(root / 'data' / 'app.sqlite3')
-            c.execute('UPDATE claims SET suggested=? WHERE id=?',(json.dumps({'evidence':'E3','risk_level':'high'}),'visible'))
+            review.update(evidence='E3')
+            c.execute('UPDATE claims SET "gpt-6"=? WHERE id=?',(json.dumps(review),'visible'))
             c.commit();c.close()
             module.export(root, root / 'public')
             self.assertFalse(old_path.exists())
+            published = (root / 'public' / 'index.json').read_bytes()
+            c = sqlite3.connect(root / 'data' / 'app.sqlite3')
+            c.execute('UPDATE claims SET suggested=? WHERE id="visible"',(json.dumps({'evidence':'E5'}),))
+            c.commit()
+            with self.assertRaisesRegex(ValueError,'stale'):
+                module.export(root, root / 'public')
+            self.assertEqual(published,(root / 'public' / 'index.json').read_bytes())
+            c.execute('UPDATE claims SET "gpt-6"=NULL WHERE id="visible"')
+            c.commit(); c.close()
+            with self.assertRaisesRegex(ValueError,'missing'):
+                module.export(root, root / 'public')
 
 
 if __name__ == '__main__':

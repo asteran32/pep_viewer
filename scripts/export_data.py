@@ -127,6 +127,29 @@ def counter(claims, field):
                                if claim['suggested'].get(field)).items()))
 
 
+def gpt6_claim(claim):
+    """Publish only reviewed classifications, never fall back to the first coder."""
+    review = decoded(claim['gpt-6']) if 'gpt-6' in claim.keys() else None
+    if not review:
+        raise ValueError(f"gpt-6 review missing for claim {claim['id']}")
+    original = decoded(claim['suggested'], {})
+    if hashlib.sha256(claim['suggested'].encode()).hexdigest() != review['original_suggested_sha256']:
+        raise ValueError(f"gpt-6 review is stale for claim {claim['id']}")
+    labels = {key: review[key] for key in (
+        'evidence', 'risk_level', 'evidence_applicability', 'claim_unit_status', 'claim_unit_label',
+        'duplicate_of_claim_id', 'e0_reference_principle', 'e0_reference_detail',
+        'expert_review_required', 'coding_date', 'codebook_version') if key in review}
+    # Original quotations are source material, not a classification by the first coder.
+    labels.update(claim_text=original.get('claim_text', ''),
+                  evidence_rationale=review['rationale'],
+                  evidence_source=review.get('evidence_sources', []),
+                  classification_basis='gpt-6')
+    return {'id': claim['id'], 'suggested': labels,
+            'occurrences': decoded(claim['occurrences'], []),
+            'review_status': 'pending_manual_review', 'reviewed': None, 'reviews': [],
+            'validation_report': {'status': 'not_checked', 'warnings': []}}
+
+
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix('.tmp')
@@ -152,15 +175,7 @@ def export(root, output):
             claims = []
             for claim in con.execute('''SELECT cl.* FROM claims cl LEFT JOIN claim_deletions d ON d.claim_id=cl.id
                                         WHERE cl.job_id=? AND d.claim_id IS NULL ORDER BY cl.batch, cl.rowid''', (job['id'],)):
-                reviews = [{'labels': decoded(r['labels'], {}), 'reviewer': r['reviewer'], 'reason': r['reason'],
-                            'created_at': r['created_at']} for r in con.execute(
-                                'SELECT labels,reviewer,reason,created_at FROM reviews WHERE claim_id=? ORDER BY created_at,rowid', (claim['id'],))]
-                report = con.execute('SELECT report FROM claim_validations WHERE claim_id=?', (claim['id'],)).fetchone()
-                claims.append({'id': claim['id'], 'suggested': decoded(claim['suggested'], {}),
-                               'occurrences': decoded(claim['occurrences'], []), 'review_status': claim['review_status'],
-                               'reviewed': reviews[-1]['labels'] if reviews else None, 'reviews': reviews,
-                               'validation_report': decoded(report['report']) if report else {'status': 'not_checked', 'warnings': []}})
-            assessment = con.execute('SELECT suggested,review_status FROM video_assessments WHERE job_id=?', (job['id'],)).fetchone()
+                claims.append(gpt6_claim(claim))
             transcript = saved_transcript(root, job['transcription_id'])
             comment = con.execute('''SELECT status,retrieved_at,comments FROM comment_snapshots
                                      WHERE video_id=? AND status!='failed' ORDER BY rowid DESC LIMIT 1''', (job['video_id'],)).fetchone()
@@ -172,7 +187,7 @@ def export(root, output):
                        'warning_count': sum(len(c['validation_report'].get('warnings', [])) for c in claims)}
             rows.append({**job, **summary})
             details[job['id']] = {**job, **summary, 'claims': claims, 'transcript': transcript,
-                'video_assessment': {'suggested': decoded(assessment['suggested']), 'review_status': assessment['review_status']} if assessment else None,
+                'classification_basis': 'gpt-6', 'video_assessment': None,
                 'comments': {'status': comment['status'], 'retrieved_at': comment['retrieved_at'],
                              'items': decoded(comment['comments'], [])} if comment else None,
                 'collections': contexts}
@@ -193,11 +208,17 @@ def export(root, output):
         snapshot = hashlib.sha256(json.dumps(payload, ensure_ascii=False, sort_keys=True, allow_nan=False).encode()).hexdigest()[:20]
         for job_id, detail in details.items():
             write_json(output / 'snapshots' / snapshot / 'jobs' / f'{job_id}.json', detail)
-        index = {'schema_version': 1, 'generated_at': datetime.now(timezone.utc).isoformat(), 'snapshot': snapshot,
+        index = {'schema_version': 1, 'classification_basis': 'gpt-6', 'generated_at': datetime.now(timezone.utc).isoformat(), 'snapshot': snapshot,
                  'jobs': [{**row, 'detail': f'snapshots/{snapshot}/jobs/{row["id"]}.json'} for row in rows],
                  'collected': collected}
         # Publish index last. Its detail paths are immutable, including across updates.
         write_json(output / 'index.json', index)
+        write_json(output / 'gpt6_claims.json', {
+            'classification_basis': 'gpt-6', 'codebook_version': '2.2',
+            'review_status': 'pending_manual_review', 'snapshot': snapshot,
+            'claims': [{'claim_id': claim['id'], 'job_id': job_id, 'video_id': detail['video_id'],
+                        **claim['suggested'], 'occurrences': claim['occurrences']}
+                       for job_id, detail in details.items() for claim in detail['claims']]})
         # Retired snapshots must not keep deleted results accessible at old URLs.
         for old in (output / 'snapshots').iterdir():
             if old.name != snapshot and re.fullmatch(r'[0-9a-f]{20}', old.name) and old.is_dir() and not old.is_symlink():

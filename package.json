@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "export": "python3 scripts/export_data.py",
+    "export:analysis": "python3 scripts/export_analysis.py",
     "serve": "python3 -m http.server 8790 --bind 127.0.0.1",
     "dev": "python3 -m http.server 8790 --bind 127.0.0.1",
     "test": "node --test tests/*.test.js && python3 -m unittest discover -s tests -p 'test_*.py'",

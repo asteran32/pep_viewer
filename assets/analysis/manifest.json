@@ -3,5 +3,15 @@
   "review_id": "gpt-6-2026-10-21",
   "original_report_sha256": "e4bf358d85bb37404b00b91a9cb2dda7a8c66a756129b7a7270072cd4c272297",
   "public_report_sha256": "ea41f6a017f02f6478299143e90970384fdfba87d11b6478147c5ad1a01f4bf6",
-  "publication_change": "Results unchanged; local-only source paths and run command replaced with public links."
+  "publication_change": "Results unchanged; local-only source paths and run command replaced with public links.",
+  "channel_audit": {
+    "analysis_date": "2026-10-25",
+    "displayed_types": 5,
+    "channels": 23,
+    "source_sha256": {
+      "analysis_summary.json": "fc646b616094c3d2026c8b721a217d02e124e7958c6f73cf3937594186b130bc",
+      "channel_coding.json": "41bb31a1aaa30052dcbd1ac3d089cd86c7489e2fff0e9883c812ef00d3ff3699",
+      "channel_summary.csv": "564369e661bbd082c34d1c44f93a3b6accf8109e8c5ec1f53f0c729004d8667a"
+    }
+  }
 }

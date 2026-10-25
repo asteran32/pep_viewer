@@ -1,0 +1,1117 @@
+{
+  "analysis_date": "2026-10-25",
+  "coding_status": "preliminary_single_coder",
+  "primary": {
+    "claims": 309,
+    "videos": 49,
+    "channels": 23,
+    "low": 97,
+    "moderate": 150,
+    "high": 62,
+    "high_rate_pct": 20.06
+  },
+  "types": {
+    "veterinary_affiliated": {
+      "label": "수의사·동물병원·수의사팀 관련",
+      "claims": 152,
+      "videos": 23,
+      "channels": 11,
+      "low": 68,
+      "moderate": 75,
+      "high": 9,
+      "high_rate_pct": 5.92,
+      "within_type_risk_pct": {
+        "low": 44.74,
+        "moderate": 49.34,
+        "high": 5.92
+      },
+      "share_of_risk_pool_pct": {
+        "low": 70.1,
+        "moderate": 50.0,
+        "high": 14.52
+      }
+    },
+    "caregiver_creator": {
+      "label": "보호자 경험·콘텐츠 채널",
+      "claims": 110,
+      "videos": 15,
+      "channels": 3,
+      "low": 14,
+      "moderate": 50,
+      "high": 46,
+      "high_rate_pct": 41.82,
+      "within_type_risk_pct": {
+        "low": 12.73,
+        "moderate": 45.45,
+        "high": 41.82
+      },
+      "share_of_risk_pool_pct": {
+        "low": 14.43,
+        "moderate": 33.33,
+        "high": 74.19
+      }
+    },
+    "pet_information_creator": {
+      "label": "반려동물 정보·크리에이터",
+      "claims": 35,
+      "videos": 7,
+      "channels": 6,
+      "low": 13,
+      "moderate": 18,
+      "high": 4,
+      "high_rate_pct": 11.43,
+      "within_type_risk_pct": {
+        "low": 37.14,
+        "moderate": 51.43,
+        "high": 11.43
+      },
+      "share_of_risk_pool_pct": {
+        "low": 13.4,
+        "moderate": 12.0,
+        "high": 6.45
+      }
+    },
+    "media_education": {
+      "label": "미디어·교육·전문가 인터뷰",
+      "claims": 8,
+      "videos": 3,
+      "channels": 2,
+      "low": 1,
+      "moderate": 4,
+      "high": 3,
+      "high_rate_pct": 37.5,
+      "within_type_risk_pct": {
+        "low": 12.5,
+        "moderate": 50.0,
+        "high": 37.5
+      },
+      "share_of_risk_pool_pct": {
+        "low": 1.03,
+        "moderate": 2.67,
+        "high": 4.84
+      }
+    },
+    "commercial_brand": {
+      "label": "펫푸드 판매 브랜드",
+      "claims": 4,
+      "videos": 1,
+      "channels": 1,
+      "low": 1,
+      "moderate": 3,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "within_type_risk_pct": {
+        "low": 25.0,
+        "moderate": 75.0,
+        "high": 0.0
+      },
+      "share_of_risk_pool_pct": {
+        "low": 1.03,
+        "moderate": 2.0,
+        "high": 0.0
+      }
+    }
+  },
+  "channels": [
+    {
+      "channel_label": "C01",
+      "channel_id": "UCCh4ToDHONzOHoEZoIZAUdQ",
+      "name": "세상의 모든 고양이_YouTube Cat",
+      "url": "https://www.youtube.com/channel/UCCh4ToDHONzOHoEZoIZAUdQ",
+      "channel_type": "caregiver_creator",
+      "channel_type_label": "보호자 경험·콘텐츠 채널",
+      "declared_or_supported_role": "전문자격 미확인",
+      "evidence_strength": "explicit_activity_credential_unknown",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "보호자 사례·보충제 정보·추천인 적립의 관찰 가능한 특성. 수의사 또는 약사가 아니라고 확정하지 않음.",
+      "evidence": [
+        {
+          "video_id": "uACw5tA6S0o",
+          "field": "description",
+          "quote": "집사가 집에서 혼자",
+          "url": "https://www.youtube.com/watch?v=uACw5tA6S0o"
+        },
+        {
+          "video_id": "uACw5tA6S0o",
+          "field": "description",
+          "quote": "뽀뽀네에도 적립이",
+          "url": "https://www.youtube.com/watch?v=uACw5tA6S0o"
+        },
+        {
+          "video_id": "OAmCF3EffAE",
+          "field": "description",
+          "quote": "보조제와 영양제에 대한 정보를 공유해요.",
+          "url": "https://www.youtube.com/watch?v=OAmCF3EffAE"
+        }
+      ],
+      "external_sources": [],
+      "claims": 101,
+      "videos": 13,
+      "channels": 1,
+      "low": 10,
+      "moderate": 46,
+      "high": 45,
+      "high_rate_pct": 44.55,
+      "share_of_all_high_pct": 72.58,
+      "within_channel_risk_pct": {
+        "low": 9.9,
+        "moderate": 45.54,
+        "high": 44.55
+      }
+    },
+    {
+      "channel_label": "C02",
+      "channel_id": "UCP7yGjY1GvQJRlpVwrz2uKQ",
+      "name": "한국반려동물영양연구소",
+      "url": "https://www.youtube.com/channel/UCP7yGjY1GvQJRlpVwrz2uKQ",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "수의사 관련 영양 연구·판매 조직",
+      "evidence_strength": "explicit_metadata_and_official_site",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "수의사 관련 조직과 판매 브랜드라는 두 특성을 함께 보존. 모든 발화자를 정설령 개인으로 일괄 귀속하지 않음.",
+      "evidence": [
+        {
+          "video_id": "XYeOyMaJaNg",
+          "field": "description",
+          "quote": "수의사 정설령 원장님과",
+          "url": "https://www.youtube.com/watch?v=XYeOyMaJaNg"
+        },
+        {
+          "video_id": "CSRXR41oAn0",
+          "field": "description",
+          "quote": "레이앤이본 스마트스토어",
+          "url": "https://www.youtube.com/watch?v=CSRXR41oAn0"
+        }
+      ],
+      "external_sources": [
+        {
+          "url": "https://www.knrc.co.kr/",
+          "title": "한국반려동물영양연구소 공식 홈페이지",
+          "source_type": "organization_owned",
+          "supports": "정설령 대표와 영양제·자연식 브랜드를 운영하는 법인이라는 점을 확인. 개인 면허 조회 자료는 아님."
+        },
+        {
+          "url": "https://www.knrc.co.kr/board/notice/209?page=1&sod=asc&sop=and&sst=wr_hit",
+          "title": "한국반려동물영양연구소 공식 보호자 세미나 공지",
+          "source_type": "organization_owned",
+          "supports": "정설령을 수의과대학 영양학 겸임교수·한국영양전문동물병원 원장으로 소개."
+        }
+      ],
+      "claims": 58,
+      "videos": 7,
+      "channels": 1,
+      "low": 25,
+      "moderate": 26,
+      "high": 7,
+      "high_rate_pct": 12.07,
+      "share_of_all_high_pct": 11.29,
+      "within_channel_risk_pct": {
+        "low": 43.1,
+        "moderate": 44.83,
+        "high": 12.07
+      }
+    },
+    {
+      "channel_label": "C03",
+      "channel_id": "UCY6vdWyzsVG4GYmATAnroOg",
+      "name": "멍냥거탑(에스동물메디컬센터)",
+      "url": "https://www.youtube.com/channel/UCY6vdWyzsVG4GYmATAnroOg",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "동물병원 채널 표방",
+      "evidence_strength": "explicit_metadata",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "병원 정체성의 자기표방이며 개별 수의사의 면허를 조회한 것은 아님.",
+      "evidence": [
+        {
+          "video_id": "QByUgNKF_Uw",
+          "field": "description",
+          "quote": "S동물암센터",
+          "url": "https://www.youtube.com/watch?v=QByUgNKF_Uw"
+        }
+      ],
+      "external_sources": [],
+      "claims": 35,
+      "videos": 3,
+      "channels": 1,
+      "low": 19,
+      "moderate": 16,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 54.29,
+        "moderate": 45.71,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C04",
+      "channel_id": "UCOjY90eUjeTFaLJye1w22gg",
+      "name": "박원장의 DnC 건강 상담소",
+      "url": "https://www.youtube.com/channel/UCOjY90eUjeTFaLJye1w22gg",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "수의사 자기소개",
+      "evidence_strength": "explicit_metadata",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "",
+      "evidence": [
+        {
+          "video_id": "M5g2aBIQ830",
+          "field": "description",
+          "quote": "종양 전문 수의사가 해드립니다",
+          "url": "https://www.youtube.com/watch?v=M5g2aBIQ830"
+        }
+      ],
+      "external_sources": [],
+      "claims": 21,
+      "videos": 2,
+      "channels": 1,
+      "low": 8,
+      "moderate": 13,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 38.1,
+        "moderate": 61.9,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C05",
+      "channel_id": "UCJoDLjBYDbwYHcJBczfCAig",
+      "name": "닥터맘마: Dr mamma",
+      "url": "https://www.youtube.com/channel/UCJoDLjBYDbwYHcJBczfCAig",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "수의사팀을 내세운 펫푸드 브랜드",
+      "evidence_strength": "explicit_metadata",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "수의사팀 출연과 브랜드 정체성을 함께 기록. 법적 채널 소유자의 직업 판정은 아님.",
+      "evidence": [
+        {
+          "video_id": "3VY9waqslEE",
+          "field": "description",
+          "quote": "수의사가 만든 반려동물 브랜드",
+          "url": "https://www.youtube.com/watch?v=3VY9waqslEE"
+        },
+        {
+          "video_id": "3VY9waqslEE",
+          "field": "description",
+          "quote": "수의학박사 이현경님",
+          "url": "https://www.youtube.com/watch?v=3VY9waqslEE"
+        }
+      ],
+      "external_sources": [],
+      "claims": 9,
+      "videos": 3,
+      "channels": 1,
+      "low": 5,
+      "moderate": 3,
+      "high": 1,
+      "high_rate_pct": 11.11,
+      "share_of_all_high_pct": 1.61,
+      "within_channel_risk_pct": {
+        "low": 55.56,
+        "moderate": 33.33,
+        "high": 11.11
+      }
+    },
+    {
+      "channel_label": "C06",
+      "channel_id": "UCXSO1ii7Ro3xBIYuAcfXOjg",
+      "name": "강아지의 마음",
+      "url": "https://www.youtube.com/channel/UCXSO1ii7Ro3xBIYuAcfXOjg",
+      "channel_type": "pet_information_creator",
+      "channel_type_label": "반려동물 정보·크리에이터",
+      "declared_or_supported_role": "전문자격 미확인",
+      "evidence_strength": "observed_content_credential_unknown",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "제목의 수의사가 알려주지 않는다는 표현은 운영자가 수의사라는 근거가 아님.",
+      "evidence": [
+        {
+          "video_id": "Te_ZEUbyqTE",
+          "field": "description",
+          "quote": "12가지 음식을 소개합니다.",
+          "url": "https://www.youtube.com/watch?v=Te_ZEUbyqTE"
+        }
+      ],
+      "external_sources": [],
+      "claims": 8,
+      "videos": 1,
+      "channels": 1,
+      "low": 1,
+      "moderate": 3,
+      "high": 4,
+      "high_rate_pct": 50.0,
+      "share_of_all_high_pct": 6.45,
+      "within_channel_risk_pct": {
+        "low": 12.5,
+        "moderate": 37.5,
+        "high": 50.0
+      }
+    },
+    {
+      "channel_label": "C07",
+      "channel_id": "UCU9A_ZQTs_Q6VUo9hk16j4A",
+      "name": "김춘식입니다",
+      "url": "https://www.youtube.com/channel/UCU9A_ZQTs_Q6VUo9hk16j4A",
+      "channel_type": "pet_information_creator",
+      "channel_type_label": "반려동물 정보·크리에이터",
+      "declared_or_supported_role": "전문자격 미확인",
+      "evidence_strength": "observed_content_credential_unknown",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "표본 영상의 정보 제공 활동에 따른 잠정 분류. 구독자 영향력·운영자 직업은 판정하지 않음.",
+      "evidence": [
+        {
+          "video_id": "gqKjUndlM1w",
+          "field": "title",
+          "quote": "무서운 사료 성분들",
+          "url": "https://www.youtube.com/watch?v=gqKjUndlM1w"
+        }
+      ],
+      "external_sources": [],
+      "claims": 7,
+      "videos": 1,
+      "channels": 1,
+      "low": 2,
+      "moderate": 5,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 28.57,
+        "moderate": 71.43,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C08",
+      "channel_id": "UCcbw2E9k_QDjY81FKdj-1gQ",
+      "name": "24시 예은동물의료센터",
+      "url": "https://www.youtube.com/channel/UCcbw2E9k_QDjY81FKdj-1gQ",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "동물의료센터 명칭 표방",
+      "evidence_strength": "channel_name_only",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "영상 설명이 없어 채널명에 의존. 병원 소유·운영 주체와 개인 자격은 추가 확인 필요.",
+      "evidence": [
+        {
+          "video_id": "aV2-gKGcerQ",
+          "field": "channel",
+          "quote": "24시 예은동물의료센터",
+          "url": "https://www.youtube.com/watch?v=aV2-gKGcerQ"
+        }
+      ],
+      "external_sources": [],
+      "claims": 7,
+      "videos": 2,
+      "channels": 1,
+      "low": 0,
+      "moderate": 6,
+      "high": 1,
+      "high_rate_pct": 14.29,
+      "share_of_all_high_pct": 1.61,
+      "within_channel_risk_pct": {
+        "low": 0.0,
+        "moderate": 85.71,
+        "high": 14.29
+      }
+    },
+    {
+      "channel_label": "C09",
+      "channel_id": "UCpxtm1PJN0nusF6HtDPLCEg",
+      "name": "오늘의멍멍",
+      "url": "https://www.youtube.com/channel/UCpxtm1PJN0nusF6HtDPLCEg",
+      "channel_type": "pet_information_creator",
+      "channel_type_label": "반려동물 정보·크리에이터",
+      "declared_or_supported_role": "전문자격 미확인",
+      "evidence_strength": "explicit_activity_credential_unknown",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "",
+      "evidence": [
+        {
+          "video_id": "L2MpaHUOcLg",
+          "field": "description",
+          "quote": "시각화한 설명용 콘텐츠입니다.",
+          "url": "https://www.youtube.com/watch?v=L2MpaHUOcLg"
+        }
+      ],
+      "external_sources": [],
+      "claims": 7,
+      "videos": 1,
+      "channels": 1,
+      "low": 6,
+      "moderate": 1,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 85.71,
+        "moderate": 14.29,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C10",
+      "channel_id": "UC6SaX9WFh-KMOeRPu9xKEkQ",
+      "name": "슬기로운견주생활",
+      "url": "https://www.youtube.com/channel/UC6SaX9WFh-KMOeRPu9xKEkQ",
+      "channel_type": "caregiver_creator",
+      "channel_type_label": "보호자 경험·콘텐츠 채널",
+      "declared_or_supported_role": "보호자 자기경험; 전문자격 미확인",
+      "evidence_strength": "explicit_activity_credential_unknown",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "",
+      "evidence": [
+        {
+          "video_id": "Y5El9A_PlDw",
+          "field": "description",
+          "quote": "저희집 반려견을 기준으로",
+          "url": "https://www.youtube.com/watch?v=Y5El9A_PlDw"
+        }
+      ],
+      "external_sources": [],
+      "claims": 6,
+      "videos": 1,
+      "channels": 1,
+      "low": 3,
+      "moderate": 3,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 50.0,
+        "moderate": 50.0,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C11",
+      "channel_id": "UCLor_Lx3CZgPAE_gkJg5xeQ",
+      "name": "파라곤동물병원",
+      "url": "https://www.youtube.com/channel/UCLor_Lx3CZgPAE_gkJg5xeQ",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "동물병원 명칭 표방",
+      "evidence_strength": "channel_name_only",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "개별 전문 자격을 확인한 것은 아님. 채널명만으로 분류한 경우의 민감도 분석에 포함.",
+      "evidence": [
+        {
+          "video_id": "HApuHwMJM-w",
+          "field": "channel",
+          "quote": "파라곤동물병원",
+          "url": "https://www.youtube.com/watch?v=HApuHwMJM-w"
+        }
+      ],
+      "external_sources": [],
+      "claims": 6,
+      "videos": 1,
+      "channels": 1,
+      "low": 4,
+      "moderate": 2,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 66.67,
+        "moderate": 33.33,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C12",
+      "channel_id": "UCC4s_WDAPADgzy42cwZZuxg",
+      "name": "반려동물 관리사 - 전민도",
+      "url": "https://www.youtube.com/channel/UCC4s_WDAPADgzy42cwZZuxg",
+      "channel_type": "pet_information_creator",
+      "channel_type_label": "반려동물 정보·크리에이터",
+      "declared_or_supported_role": "반려동물관리사 자기표방; 의료 전문자격 미확인",
+      "evidence_strength": "channel_name_activity_credential_unknown",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "반려동물관리사라는 명칭을 수의사·약사 면허와 동일하게 취급하지 않음.",
+      "evidence": [
+        {
+          "video_id": "Am_Z4ZO3rTc",
+          "field": "channel",
+          "quote": "반려동물 관리사 - 전민도",
+          "url": "https://www.youtube.com/watch?v=Am_Z4ZO3rTc"
+        }
+      ],
+      "external_sources": [],
+      "claims": 5,
+      "videos": 1,
+      "channels": 1,
+      "low": 3,
+      "moderate": 2,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 60.0,
+        "moderate": 40.0,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C13",
+      "channel_id": "UCIG8iOE5PQuQbqyEfNgtGqQ",
+      "name": "레오동물병원 Func Vet",
+      "url": "https://www.youtube.com/channel/UCIG8iOE5PQuQbqyEfNgtGqQ",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "동물병원 진료 채널 표방",
+      "evidence_strength": "explicit_metadata",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "",
+      "evidence": [
+        {
+          "video_id": "YbUALej7VHM",
+          "field": "description",
+          "quote": "레오동물병원 원장이",
+          "url": "https://www.youtube.com/watch?v=YbUALej7VHM"
+        }
+      ],
+      "external_sources": [],
+      "claims": 5,
+      "videos": 1,
+      "channels": 1,
+      "low": 3,
+      "moderate": 2,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 60.0,
+        "moderate": 40.0,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C14",
+      "channel_id": "UC1nYe2ULAvNcKq1ywqODmAA",
+      "name": "멍심보감",
+      "url": "https://www.youtube.com/channel/UC1nYe2ULAvNcKq1ywqODmAA",
+      "channel_type": "pet_information_creator",
+      "channel_type_label": "반려동물 정보·크리에이터",
+      "declared_or_supported_role": "전문자격 미확인",
+      "evidence_strength": "explicit_activity_credential_unknown",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "",
+      "evidence": [
+        {
+          "video_id": "GyJrnQnEX_w",
+          "field": "description",
+          "quote": "현실적인 팁과 감성 스토리를 전해드려요.",
+          "url": "https://www.youtube.com/watch?v=GyJrnQnEX_w"
+        }
+      ],
+      "external_sources": [],
+      "claims": 4,
+      "videos": 2,
+      "channels": 1,
+      "low": 1,
+      "moderate": 3,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 25.0,
+        "moderate": 75.0,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C15",
+      "channel_id": "UCGNEWJx_rlL7FSMB6hFN5cQ",
+      "name": "푸우형",
+      "url": "https://www.youtube.com/channel/UCGNEWJx_rlL7FSMB6hFN5cQ",
+      "channel_type": "pet_information_creator",
+      "channel_type_label": "반려동물 정보·크리에이터",
+      "declared_or_supported_role": "반려동물 콘텐츠 스튜디오; 운영자 전문자격 미확인",
+      "evidence_strength": "explicit_metadata",
+      "license_registry_checked": false,
+      "guest_veterinarian": true,
+      "guest_name": "정설령 수의사",
+      "notes": "수의사 초청 인터뷰. 출연자의 전문직을 채널 운영자의 직업으로 치환하지 않음.",
+      "evidence": [
+        {
+          "video_id": "EDu5FxX9ArY",
+          "field": "description",
+          "quote": "정설령 선생님을 모셔서",
+          "url": "https://www.youtube.com/watch?v=EDu5FxX9ArY"
+        },
+        {
+          "video_id": "EDu5FxX9ArY",
+          "field": "description",
+          "quote": "푸우형 스튜디오",
+          "url": "https://www.youtube.com/watch?v=EDu5FxX9ArY"
+        }
+      ],
+      "external_sources": [],
+      "claims": 4,
+      "videos": 1,
+      "channels": 1,
+      "low": 0,
+      "moderate": 4,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 0.0,
+        "moderate": 100.0,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C16",
+      "channel_id": "UCNNizjIgBRVtzPDoEftZBZg",
+      "name": "미라클밀",
+      "url": "https://www.youtube.com/channel/UCNNizjIgBRVtzPDoEftZBZg",
+      "channel_type": "commercial_brand",
+      "channel_type_label": "펫푸드 판매 브랜드",
+      "declared_or_supported_role": "펫푸드 브랜드; 운영자 전문자격 미확인",
+      "evidence_strength": "explicit_metadata",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "",
+      "evidence": [
+        {
+          "video_id": "fLykh19lUsQ",
+          "field": "description",
+          "quote": "미라클밀 수비드 완전식",
+          "url": "https://www.youtube.com/watch?v=fLykh19lUsQ"
+        },
+        {
+          "video_id": "fLykh19lUsQ",
+          "field": "description",
+          "quote": "https://smartstore.naver.com/miraclemeal",
+          "url": "https://www.youtube.com/watch?v=fLykh19lUsQ"
+        }
+      ],
+      "external_sources": [],
+      "claims": 4,
+      "videos": 1,
+      "channels": 1,
+      "low": 1,
+      "moderate": 3,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 25.0,
+        "moderate": 75.0,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C17",
+      "channel_id": "UCX3QAQPW30ZPpj39LJjJ_3g",
+      "name": "설채현의 놀로와",
+      "url": "https://www.youtube.com/channel/UCX3QAQPW30ZPpj39LJjJ_3g",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "수의사 관련 채널; 공식 서비스 소개로 보완",
+      "evidence_strength": "official_site_supplement",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "저장된 해당 영상의 설명만으로는 직업이 명시되지 않아 공식 진료 안내를 보완 근거로 사용.",
+      "evidence": [
+        {
+          "video_id": "ZYqWy57SnHQ",
+          "field": "channel",
+          "quote": "설채현의 놀로와",
+          "url": "https://www.youtube.com/watch?v=ZYqWy57SnHQ"
+        }
+      ],
+      "external_sources": [
+        {
+          "url": "https://www.knollo.store/booking/1",
+          "title": "놀로 공식 설채현 수의사 진료 안내",
+          "source_type": "organization_owned",
+          "supports": "설채현을 수의사로 소개하며 설채현의 놀로와 채널과 연결. 법적 채널 소유자나 면허번호 확인을 의미하지 않음."
+        }
+      ],
+      "claims": 4,
+      "videos": 1,
+      "channels": 1,
+      "low": 1,
+      "moderate": 3,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 25.0,
+        "moderate": 75.0,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C18",
+      "channel_id": "UCZcCl6Dd--jid3vWu3Vf_dQ",
+      "name": "Liberte Chan",
+      "url": "https://www.youtube.com/channel/UCZcCl6Dd--jid3vWu3Vf_dQ",
+      "channel_type": "media_education",
+      "channel_type_label": "미디어·교육·전문가 인터뷰",
+      "declared_or_supported_role": "방송인·디지털 크리에이터",
+      "evidence_strength": "explicit_metadata_and_official_site",
+      "license_registry_checked": false,
+      "guest_veterinarian": true,
+      "guest_name": "Trina Hazzah 수의사",
+      "notes": "채널 주인 Liberté Chan과 출연 수의사를 구분. 기존 영상 actor_type=veterinarian_clinic을 채널 직업으로 그대로 쓰면 오류.",
+      "evidence": [
+        {
+          "video_id": "JxXixaDFaIw",
+          "field": "description",
+          "quote": "Hazzah, DVM, DACVIM",
+          "url": "https://www.youtube.com/watch?v=JxXixaDFaIw"
+        }
+      ],
+      "external_sources": [
+        {
+          "url": "https://lifeofliberte.com/about-liberte-chan/",
+          "title": "Liberté Chan 공식 소개",
+          "source_type": "creator_owned",
+          "supports": "채널 주인은 디지털 크리에이터·방송인으로 소개됨. 영상에 출연한 수의사 Trina Hazzah와 다른 인물."
+        }
+      ],
+      "claims": 4,
+      "videos": 1,
+      "channels": 1,
+      "low": 1,
+      "moderate": 3,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 25.0,
+        "moderate": 75.0,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C19",
+      "channel_id": "UCZswkEJwHaCKcSwGxQ2KTcQ",
+      "name": "위들아카데미",
+      "url": "https://www.youtube.com/channel/UCZswkEJwHaCKcSwGxQ2KTcQ",
+      "channel_type": "media_education",
+      "channel_type_label": "미디어·교육·전문가 인터뷰",
+      "declared_or_supported_role": "전문가 초청 교육 플랫폼",
+      "evidence_strength": "explicit_metadata_and_operator_announcement",
+      "license_registry_checked": false,
+      "guest_veterinarian": true,
+      "guest_name": "정설령 수의사",
+      "notes": "수의학 관련 협력 교육 플랫폼이며 병원 개인 채널로 처리하지 않음. 운영 측 과거 소개를 보완 근거로 사용.",
+      "evidence": [
+        {
+          "video_id": "lRTU6k7kcxM",
+          "field": "description",
+          "quote": "한국영양전문동물병원 정설령 원장님과",
+          "url": "https://www.youtube.com/watch?v=lRTU6k7kcxM"
+        }
+      ],
+      "external_sources": [
+        {
+          "url": "https://creators.mypetlife.co.kr/자연식-제대로-만드는-방법이-궁금하다면/",
+          "title": "헬스앤메디슨 작성 위들아카데미 소개",
+          "source_type": "operator_authored_announcement",
+          "supports": "운영 측 작성 글에서 위들아카데미를 한국동물병원협회·헬스앤메디슨의 교육 플랫폼으로, 정설령을 초청 수의사로 설명. 2021년 운영 소개이며 현재 법적 소유구조 검증은 아님."
+        }
+      ],
+      "claims": 4,
+      "videos": 2,
+      "channels": 1,
+      "low": 0,
+      "moderate": 1,
+      "high": 3,
+      "high_rate_pct": 75.0,
+      "share_of_all_high_pct": 4.84,
+      "within_channel_risk_pct": {
+        "low": 0.0,
+        "moderate": 25.0,
+        "high": 75.0
+      }
+    },
+    {
+      "channel_label": "C20",
+      "channel_id": "UC8Xem0r_J-R8_tdpGEUUBEw",
+      "name": "beachloversara",
+      "url": "https://www.youtube.com/channel/UC8Xem0r_J-R8_tdpGEUUBEw",
+      "channel_type": "caregiver_creator",
+      "channel_type_label": "보호자 경험·콘텐츠 채널",
+      "declared_or_supported_role": "개인 사용 경험 제공; 전문자격 미확인",
+      "evidence_strength": "explicit_activity_credential_unknown",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "제품 링크가 있다는 이유만으로 제휴 수익 관계를 확정하지 않음.",
+      "evidence": [
+        {
+          "video_id": "LPwYmEWthk8",
+          "field": "description",
+          "quote": "제가 쓰는 CBD OIL 링크",
+          "url": "https://www.youtube.com/watch?v=LPwYmEWthk8"
+        }
+      ],
+      "external_sources": [],
+      "claims": 3,
+      "videos": 1,
+      "channels": 1,
+      "low": 1,
+      "moderate": 1,
+      "high": 1,
+      "high_rate_pct": 33.33,
+      "share_of_all_high_pct": 1.61,
+      "within_channel_risk_pct": {
+        "low": 33.33,
+        "moderate": 33.33,
+        "high": 33.33
+      }
+    },
+    {
+      "channel_label": "C21",
+      "channel_id": "UCGgiPZfipeUlkNBRvRkhkfw",
+      "name": "동네수의사",
+      "url": "https://www.youtube.com/channel/UCGgiPZfipeUlkNBRvRkhkfw",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "수의사 명칭 자기표방",
+      "evidence_strength": "channel_name_only",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "동명의 다른 채널과 혼동하지 않도록 ID를 보존. 개인 신원·면허 확인 전 자기표방으로 제한.",
+      "evidence": [
+        {
+          "video_id": "QHkaQJ8K3kM",
+          "field": "channel",
+          "quote": "동네수의사",
+          "url": "https://www.youtube.com/watch?v=QHkaQJ8K3kM"
+        }
+      ],
+      "external_sources": [],
+      "claims": 3,
+      "videos": 1,
+      "channels": 1,
+      "low": 1,
+      "moderate": 2,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 33.33,
+        "moderate": 66.67,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C22",
+      "channel_id": "UCckoQzWfBa5l3EK9AcCpAhw",
+      "name": "윤샘의 마이펫상담소-Pet Clinic",
+      "url": "https://www.youtube.com/channel/UCckoQzWfBa5l3EK9AcCpAhw",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "수의사·동물병원 자기표방",
+      "evidence_strength": "explicit_metadata",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "C23과 동일한 윤샘·병원·소셜 계정을 제시하므로 독립적인 사람 2명으로 취급하지 않음.",
+      "evidence": [
+        {
+          "video_id": "6QhttnPanOs",
+          "field": "description",
+          "quote": "#수의사 #윤샘",
+          "url": "https://www.youtube.com/watch?v=6QhttnPanOs"
+        },
+        {
+          "video_id": "6QhttnPanOs",
+          "field": "description",
+          "quote": "월드펫 동물병원",
+          "url": "https://www.youtube.com/watch?v=6QhttnPanOs"
+        }
+      ],
+      "external_sources": [],
+      "claims": 2,
+      "videos": 1,
+      "channels": 1,
+      "low": 1,
+      "moderate": 1,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 50.0,
+        "moderate": 50.0,
+        "high": 0.0
+      }
+    },
+    {
+      "channel_label": "C23",
+      "channel_id": "UCh3Ru0NRYVaUfsSG7LPJ11g",
+      "name": "윤샘의 강아지상담소",
+      "url": "https://www.youtube.com/channel/UCh3Ru0NRYVaUfsSG7LPJ11g",
+      "channel_type": "veterinary_affiliated",
+      "channel_type_label": "수의사·동물병원·수의사팀 관련",
+      "declared_or_supported_role": "수의사·동물병원 자기표방",
+      "evidence_strength": "explicit_metadata",
+      "license_registry_checked": false,
+      "guest_veterinarian": false,
+      "guest_name": null,
+      "notes": "C22와 연결된 채널. 채널 단위와 운영자 단위를 구분해야 함.",
+      "evidence": [
+        {
+          "video_id": "H6Zro5nYWZk",
+          "field": "description",
+          "quote": "#강아지 #수의사 #윤샘",
+          "url": "https://www.youtube.com/watch?v=H6Zro5nYWZk"
+        },
+        {
+          "video_id": "H6Zro5nYWZk",
+          "field": "description",
+          "quote": "월드펫 동물병원",
+          "url": "https://www.youtube.com/watch?v=H6Zro5nYWZk"
+        }
+      ],
+      "external_sources": [],
+      "claims": 2,
+      "videos": 1,
+      "channels": 1,
+      "low": 1,
+      "moderate": 1,
+      "high": 0,
+      "high_rate_pct": 0.0,
+      "share_of_all_high_pct": 0.0,
+      "within_channel_risk_pct": {
+        "low": 50.0,
+        "moderate": 50.0,
+        "high": 0.0
+      }
+    }
+  ],
+  "concentration": {
+    "low": {
+      "claims": 97,
+      "channels": 20,
+      "videos": 36,
+      "top_channel": "C02",
+      "top_channel_count": 25,
+      "top_channel_share_pct": 25.77,
+      "top_two_share_pct": 45.36,
+      "channel_counts": {
+        "C02": 25,
+        "C03": 19,
+        "C01": 10,
+        "C04": 8,
+        "C09": 6,
+        "C05": 5,
+        "C11": 4,
+        "C12": 3,
+        "C13": 3,
+        "C10": 3,
+        "C07": 2,
+        "C06": 1,
+        "C17": 1,
+        "C14": 1,
+        "C22": 1,
+        "C18": 1,
+        "C20": 1,
+        "C16": 1,
+        "C23": 1,
+        "C21": 1
+      }
+    },
+    "moderate": {
+      "claims": 150,
+      "channels": 23,
+      "videos": 47,
+      "top_channel": "C01",
+      "top_channel_count": 46,
+      "top_channel_share_pct": 30.67,
+      "top_two_share_pct": 48.0,
+      "channel_counts": {
+        "C01": 46,
+        "C02": 26,
+        "C03": 16,
+        "C04": 13,
+        "C08": 6,
+        "C07": 5,
+        "C15": 4,
+        "C05": 3,
+        "C06": 3,
+        "C14": 3,
+        "C17": 3,
+        "C18": 3,
+        "C16": 3,
+        "C10": 3,
+        "C12": 2,
+        "C11": 2,
+        "C13": 2,
+        "C21": 2,
+        "C22": 1,
+        "C19": 1,
+        "C09": 1,
+        "C20": 1,
+        "C23": 1
+      }
+    },
+    "high": {
+      "claims": 62,
+      "channels": 7,
+      "videos": 16,
+      "top_channel": "C01",
+      "top_channel_count": 45,
+      "top_channel_share_pct": 72.58,
+      "top_two_share_pct": 83.87,
+      "channel_counts": {
+        "C01": 45,
+        "C02": 7,
+        "C06": 4,
+        "C19": 3,
+        "C05": 1,
+        "C08": 1,
+        "C20": 1
+      }
+    }
+  },
+  "source_sha256": {
+    "analysis_summary.json": "fc646b616094c3d2026c8b721a217d02e124e7958c6f73cf3937594186b130bc",
+    "channel_coding.json": "41bb31a1aaa30052dcbd1ac3d089cd86c7489e2fff0e9883c812ef00d3ff3699",
+    "channel_summary.csv": "564369e661bbd082c34d1c44f93a3b6accf8109e8c5ec1f53f0c729004d8667a"
+  }
+}
