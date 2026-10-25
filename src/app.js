@@ -80,16 +80,45 @@ function renderMain() {
   }
   renderFilters();
 }
-async function json(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`데이터를 불러오지 못했습니다 (${response.status}).`);
+async function json(url, options) {
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    const error = new Error(`데이터를 불러오지 못했습니다 (${response.status}). 경로: ${new URL(url).pathname}`);
+    error.status = response.status;
+    throw error;
+  }
   return response.json();
+}
+let indexRefresh;
+async function latestIndex() {
+  if (!indexRefresh) {
+    indexRefresh = json(new URL('../data/index.json', import.meta.url), {cache:'no-store'}).then(data => {
+      if (data.schema_version !== 1 || !Array.isArray(data.jobs) || !Array.isArray(data.collected)) throw new Error('지원하지 않는 데이터 형식입니다.');
+      if (state.data?.snapshot && state.data.snapshot !== data.snapshot) details.clear();
+      state.data = data;
+      return data;
+    }).finally(() => { indexRefresh = null; });
+  }
+  return indexRefresh;
 }
 async function loadDetail(id) {
   const row = state.data.jobs.find(job => job.id === id);
   if (!row) return null;
   if (!details.has(id)) {
-    const promise = json(new URL('../data/' + row.detail, import.meta.url));
+    const promise = (async () => {
+      try {
+        return await json(new URL('../data/' + row.detail, import.meta.url));
+      } catch (error) {
+        if (![404,410].includes(error.status)) throw error;
+        // An open tab can still reference a snapshot retired by a new deployment.
+        const current = await latestIndex();
+        const updated = current.jobs.find(job => job.id === id);
+        renderStats(); renderMain();
+        if (!updated) throw new Error('이 항목은 최신 데이터에서 제외되었습니다. 목록을 다시 선택해 주세요.');
+        if (updated.detail === row.detail) throw new Error(`${error.message} 최신 목록에도 같은 경로가 있습니다. data/snapshots 폴더가 모두 업로드되었는지 확인해 주세요.`);
+        return json(new URL('../data/' + updated.detail, import.meta.url), {cache:'no-store'});
+      }
+    })();
     details.set(id, promise);
     promise.catch(() => details.delete(id));
   }
@@ -259,9 +288,7 @@ $('download-button').addEventListener('click', async () => {
 });
 async function boot() {
   try {
-    const data = await json(new URL('../data/index.json', import.meta.url));
-    if (data.schema_version !== 1 || !Array.isArray(data.jobs) || !Array.isArray(data.collected)) throw new Error('지원하지 않는 데이터 형식입니다.');
-    state.data = data;
+    await latestIndex();
     renderStats(); renderMain(); handleHash();
   } catch (error) {
     $('result-count').textContent = '데이터 로딩 실패';

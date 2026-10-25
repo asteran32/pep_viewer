@@ -23,7 +23,7 @@ jobs:
         run: |
           if [ -f github_page/index.html ]; then source_dir=github_page; else source_dir=.; fi
           mkdir -p _site
-          cp "$source_dir/index.html" "$source_dir/codebook.html" "$source_dir/.nojekyll" _site/
+          cp "$source_dir/index.html" "$source_dir/codebook.html" "$source_dir/analysis.html" "$source_dir/.nojekyll" _site/
           cp -R "$source_dir/assets" "$source_dir/src" "$source_dir/vendor" "$source_dir/data" _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

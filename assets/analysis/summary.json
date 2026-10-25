@@ -1,0 +1,1891 @@
+{
+  "analysis_date": "2026-10-25",
+  "review_id": "gpt-6-2026-10-21",
+  "cohort_rule": "CSV.is_latest_completed == True AND review.claim_unit_status == eligible",
+  "all_rows": {
+    "n": 434,
+    "videos": 51,
+    "channels": 25,
+    "evidence": {
+      "E3": 113,
+      "E2": 118,
+      "not_applicable_out_of_scope": 81,
+      "E1": 33,
+      "E0": 40,
+      "not_assessable": 16,
+      "E4": 26,
+      "E5": 7
+    },
+    "risk": {
+      "moderate": 164,
+      "low": 113,
+      "not_assessable": 93,
+      "high": 64
+    }
+  },
+  "latest_rows": {
+    "n": 400,
+    "videos": 51,
+    "channels": 25,
+    "evidence": {
+      "E3": 107,
+      "E2": 109,
+      "not_applicable_out_of_scope": 75,
+      "E1": 28,
+      "E0": 33,
+      "not_assessable": 16,
+      "E4": 25,
+      "E5": 7
+    },
+    "risk": {
+      "moderate": 150,
+      "low": 99,
+      "not_assessable": 87,
+      "high": 64
+    }
+  },
+  "all_eligible": {
+    "n": 337,
+    "videos": 49,
+    "channels": 23,
+    "evidence": {
+      "E3": 113,
+      "E2": 118,
+      "E1": 33,
+      "E0": 40,
+      "E4": 26,
+      "E5": 7
+    },
+    "risk": {
+      "moderate": 164,
+      "low": 111,
+      "high": 62
+    }
+  },
+  "primary": {
+    "n": 309,
+    "videos": 49,
+    "channels": 23,
+    "evidence": {
+      "E3": 107,
+      "E2": 109,
+      "E1": 28,
+      "E0": 33,
+      "E4": 25,
+      "E5": 7
+    },
+    "risk": {
+      "moderate": 150,
+      "low": 97,
+      "high": 62
+    }
+  },
+  "latest_unit_status": {
+    "eligible": 309,
+    "out_of_scope": 25,
+    "quoted_not_endorsed": 4,
+    "uncertain": 16,
+    "duplicate": 16,
+    "personal_experience_only": 3,
+    "product_description_only": 3,
+    "aspiration_only": 1,
+    "citation_mention_only": 1,
+    "heading_only": 2,
+    "price_only": 1,
+    "question_only": 1,
+    "non_nutritional_drug": 10,
+    "navigation_only": 1,
+    "non_nutrition_cancer_education": 1,
+    "human_anecdote": 1,
+    "human_only": 3,
+    "other_animal_only": 1,
+    "recommendation_history_only": 1
+  },
+  "groupings": {
+    "intervention_type": {
+      "supplement": {
+        "n": 213,
+        "videos": 37,
+        "channels": 16,
+        "evidence": {
+          "E3": 94,
+          "E2": 75,
+          "E0": 13,
+          "E4": 15,
+          "E5": 6,
+          "E1": 10
+        },
+        "risk": {
+          "moderate": 105,
+          "low": 53,
+          "high": 55
+        },
+        "high_n": 55,
+        "corrective_n": 8
+      },
+      "single_ingredient": {
+        "n": 113,
+        "videos": 32,
+        "channels": 16,
+        "evidence": {
+          "E2": 33,
+          "E3": 66,
+          "E4": 8,
+          "E1": 5,
+          "E0": 1
+        },
+        "risk": {
+          "low": 25,
+          "high": 30,
+          "moderate": 58
+        },
+        "high_n": 30,
+        "corrective_n": 0
+      },
+      "general_dietary_advice": {
+        "n": 56,
+        "videos": 24,
+        "channels": 18,
+        "evidence": {
+          "E3": 5,
+          "E0": 20,
+          "E1": 9,
+          "E2": 18,
+          "E4": 3,
+          "E5": 1
+        },
+        "risk": {
+          "moderate": 24,
+          "low": 29,
+          "high": 3
+        },
+        "high_n": 3,
+        "corrective_n": 5
+      },
+      "mixed_combination_dietary_intervention": {
+        "n": 23,
+        "videos": 13,
+        "channels": 7,
+        "evidence": {
+          "E1": 2,
+          "E3": 10,
+          "E5": 2,
+          "E2": 6,
+          "E4": 3
+        },
+        "risk": {
+          "moderate": 11,
+          "high": 11,
+          "low": 1
+        },
+        "high_n": 11,
+        "corrective_n": 0
+      },
+      "food_avoidance_dietary_exclusion": {
+        "n": 20,
+        "videos": 7,
+        "channels": 6,
+        "evidence": {
+          "E2": 6,
+          "E0": 2,
+          "E4": 4,
+          "E1": 8
+        },
+        "risk": {
+          "low": 6,
+          "moderate": 13,
+          "high": 1
+        },
+        "high_n": 1,
+        "corrective_n": 3
+      },
+      "commercial_dry_wet_diet": {
+        "n": 13,
+        "videos": 6,
+        "channels": 6,
+        "evidence": {
+          "E1": 3,
+          "E4": 4,
+          "E2": 6
+        },
+        "risk": {
+          "moderate": 9,
+          "low": 4
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "assisted_feeding_nutritional_support": {
+        "n": 5,
+        "videos": 5,
+        "channels": 4,
+        "evidence": {
+          "E0": 3,
+          "E2": 1,
+          "E3": 1
+        },
+        "risk": {
+          "low": 3,
+          "moderate": 1,
+          "high": 1
+        },
+        "high_n": 1,
+        "corrective_n": 0
+      },
+      "topper_treat": {
+        "n": 5,
+        "videos": 5,
+        "channels": 5,
+        "evidence": {
+          "E1": 1,
+          "E2": 2,
+          "E3": 1,
+          "E4": 1
+        },
+        "risk": {
+          "moderate": 5
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "feeding_restriction": {
+        "n": 3,
+        "videos": 3,
+        "channels": 3,
+        "evidence": {
+          "E2": 2,
+          "E1": 1
+        },
+        "risk": {
+          "low": 1,
+          "moderate": 2
+        },
+        "high_n": 0,
+        "corrective_n": 1
+      },
+      "ketogenic_low_carbohydrate_diet": {
+        "n": 3,
+        "videos": 3,
+        "channels": 2,
+        "evidence": {
+          "E2": 3
+        },
+        "risk": {
+          "moderate": 3
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "no_intervention_mentioned": {
+        "n": 3,
+        "videos": 3,
+        "channels": 3,
+        "evidence": {
+          "E2": 3
+        },
+        "risk": {
+          "low": 3
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "home_cooked_diet": {
+        "n": 2,
+        "videos": 2,
+        "channels": 2,
+        "evidence": {
+          "E3": 1,
+          "E1": 1
+        },
+        "risk": {
+          "moderate": 1,
+          "low": 1
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "commercial_cooked_fresh_diet": {
+        "n": 1,
+        "videos": 1,
+        "channels": 1,
+        "evidence": {
+          "E4": 1
+        },
+        "risk": {
+          "moderate": 1
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "prescription_therapeutic_diet": {
+        "n": 1,
+        "videos": 1,
+        "channels": 1,
+        "evidence": {
+          "E1": 1
+        },
+        "risk": {
+          "low": 1
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "raw_diet": {
+        "n": 1,
+        "videos": 1,
+        "channels": 1,
+        "evidence": {
+          "E0": 1
+        },
+        "risk": {
+          "low": 1
+        },
+        "high_n": 0,
+        "corrective_n": 1
+      },
+      "unclear": {
+        "n": 1,
+        "videos": 1,
+        "channels": 1,
+        "evidence": {
+          "E2": 1
+        },
+        "risk": {
+          "low": 1
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      }
+    },
+    "claimed_outcome": {
+      "disease_or_symptom_mangement": {
+        "n": 85,
+        "videos": 31,
+        "channels": 14,
+        "evidence": {
+          "E2": 23,
+          "E1": 3,
+          "E4": 11,
+          "E3": 41,
+          "E0": 5,
+          "E5": 2
+        },
+        "risk": {
+          "low": 17,
+          "moderate": 38,
+          "high": 30
+        },
+        "high_n": 30,
+        "corrective_n": 3
+      },
+      "treatment_tolerance": {
+        "n": 76,
+        "videos": 28,
+        "channels": 13,
+        "evidence": {
+          "E2": 26,
+          "E3": 28,
+          "E4": 3,
+          "E0": 12,
+          "E5": 2,
+          "E1": 5
+        },
+        "risk": {
+          "moderate": 31,
+          "high": 20,
+          "low": 25
+        },
+        "high_n": 20,
+        "corrective_n": 2
+      },
+      "general_health_or_wellness": {
+        "n": 65,
+        "videos": 30,
+        "channels": 17,
+        "evidence": {
+          "E3": 9,
+          "E1": 8,
+          "E2": 37,
+          "E0": 3,
+          "E4": 7,
+          "E5": 1
+        },
+        "risk": {
+          "moderate": 44,
+          "low": 14,
+          "high": 7
+        },
+        "high_n": 7,
+        "corrective_n": 1
+      },
+      "tumor_shrinkage": {
+        "n": 61,
+        "videos": 25,
+        "channels": 12,
+        "evidence": {
+          "E0": 1,
+          "E3": 45,
+          "E2": 6,
+          "E5": 2,
+          "E4": 5,
+          "E1": 2
+        },
+        "risk": {
+          "low": 6,
+          "high": 20,
+          "moderate": 35
+        },
+        "high_n": 20,
+        "corrective_n": 2
+      },
+      "nutritional_adequacy_or_food_safety": {
+        "n": 52,
+        "videos": 26,
+        "channels": 16,
+        "evidence": {
+          "E3": 1,
+          "E1": 7,
+          "E0": 14,
+          "E2": 25,
+          "E4": 5
+        },
+        "risk": {
+          "low": 28,
+          "moderate": 23,
+          "high": 1
+        },
+        "high_n": 1,
+        "corrective_n": 4
+      },
+      "immune_boost": {
+        "n": 49,
+        "videos": 28,
+        "channels": 17,
+        "evidence": {
+          "E2": 23,
+          "E3": 21,
+          "E0": 2,
+          "E4": 1,
+          "E1": 2
+        },
+        "risk": {
+          "low": 16,
+          "moderate": 30,
+          "high": 3
+        },
+        "high_n": 3,
+        "corrective_n": 0
+      },
+      "prevention_or_risk_reduction": {
+        "n": 39,
+        "videos": 19,
+        "channels": 14,
+        "evidence": {
+          "E3": 16,
+          "E2": 12,
+          "E5": 1,
+          "E1": 5,
+          "E4": 5
+        },
+        "risk": {
+          "moderate": 20,
+          "low": 16,
+          "high": 3
+        },
+        "high_n": 3,
+        "corrective_n": 0
+      },
+      "body_condition_or_physical_function": {
+        "n": 25,
+        "videos": 10,
+        "channels": 6,
+        "evidence": {
+          "E2": 10,
+          "E0": 11,
+          "E3": 3,
+          "E1": 1
+        },
+        "risk": {
+          "low": 17,
+          "moderate": 5,
+          "high": 3
+        },
+        "high_n": 3,
+        "corrective_n": 4
+      },
+      "quality_of_life": {
+        "n": 22,
+        "videos": 13,
+        "channels": 6,
+        "evidence": {
+          "E0": 5,
+          "E2": 7,
+          "E3": 9,
+          "E4": 1
+        },
+        "risk": {
+          "low": 8,
+          "moderate": 9,
+          "high": 5
+        },
+        "high_n": 5,
+        "corrective_n": 0
+      },
+      "inflammation_reduction": {
+        "n": 21,
+        "videos": 12,
+        "channels": 9,
+        "evidence": {
+          "E2": 5,
+          "E3": 13,
+          "E5": 1,
+          "E1": 1,
+          "E4": 1
+        },
+        "risk": {
+          "low": 4,
+          "moderate": 9,
+          "high": 8
+        },
+        "high_n": 8,
+        "corrective_n": 0
+      },
+      "survival": {
+        "n": 17,
+        "videos": 11,
+        "channels": 7,
+        "evidence": {
+          "E0": 2,
+          "E3": 7,
+          "E5": 1,
+          "E1": 5,
+          "E2": 1,
+          "E4": 1
+        },
+        "risk": {
+          "low": 4,
+          "moderate": 8,
+          "high": 5
+        },
+        "high_n": 5,
+        "corrective_n": 0
+      },
+      "cachexia_prevention": {
+        "n": 13,
+        "videos": 8,
+        "channels": 3,
+        "evidence": {
+          "E2": 6,
+          "E0": 5,
+          "E3": 2
+        },
+        "risk": {
+          "low": 9,
+          "high": 2,
+          "moderate": 2
+        },
+        "high_n": 2,
+        "corrective_n": 3
+      },
+      "replacement_of_veterinary_treatment": {
+        "n": 9,
+        "videos": 8,
+        "channels": 5,
+        "evidence": {
+          "E0": 5,
+          "E3": 3,
+          "E4": 1
+        },
+        "risk": {
+          "low": 6,
+          "high": 3
+        },
+        "high_n": 3,
+        "corrective_n": 5
+      },
+      "appetite_improvement": {
+        "n": 6,
+        "videos": 4,
+        "channels": 2,
+        "evidence": {
+          "E3": 3,
+          "E2": 2,
+          "E0": 1
+        },
+        "risk": {
+          "high": 3,
+          "low": 2,
+          "moderate": 1
+        },
+        "high_n": 3,
+        "corrective_n": 0
+      },
+      "unclear": {
+        "n": 5,
+        "videos": 5,
+        "channels": 4,
+        "evidence": {
+          "E3": 5
+        },
+        "risk": {
+          "moderate": 4,
+          "high": 1
+        },
+        "high_n": 1,
+        "corrective_n": 0
+      },
+      "cure": {
+        "n": 3,
+        "videos": 2,
+        "channels": 1,
+        "evidence": {
+          "E3": 3
+        },
+        "risk": {
+          "high": 3
+        },
+        "high_n": 3,
+        "corrective_n": 0
+      },
+      "detoxification": {
+        "n": 2,
+        "videos": 2,
+        "channels": 2,
+        "evidence": {
+          "E2": 1,
+          "E4": 1
+        },
+        "risk": {
+          "moderate": 1,
+          "high": 1
+        },
+        "high_n": 1,
+        "corrective_n": 0
+      }
+    },
+    "nutrition_claim_mechanism": {
+      "product_potency_or_selection": {
+        "n": 84,
+        "videos": 30,
+        "channels": 16,
+        "evidence": {
+          "E4": 10,
+          "E2": 36,
+          "E3": 26,
+          "E0": 4,
+          "E5": 5,
+          "E1": 3
+        },
+        "risk": {
+          "high": 25,
+          "moderate": 41,
+          "low": 18
+        },
+        "high_n": 25,
+        "corrective_n": 1
+      },
+      "immunomodulation_or_microbiome": {
+        "n": 79,
+        "videos": 29,
+        "channels": 16,
+        "evidence": {
+          "E2": 24,
+          "E0": 2,
+          "E3": 42,
+          "E4": 5,
+          "E5": 2,
+          "E1": 4
+        },
+        "risk": {
+          "low": 20,
+          "moderate": 45,
+          "high": 14
+        },
+        "high_n": 14,
+        "corrective_n": 0
+      },
+      "nutrition_support_or_intake_management": {
+        "n": 60,
+        "videos": 27,
+        "channels": 15,
+        "evidence": {
+          "E1": 2,
+          "E2": 24,
+          "E0": 22,
+          "E3": 11,
+          "E4": 1
+        },
+        "risk": {
+          "moderate": 17,
+          "low": 36,
+          "high": 7
+        },
+        "high_n": 7,
+        "corrective_n": 8
+      },
+      "antioxidant_or_oxidative_stress": {
+        "n": 52,
+        "videos": 23,
+        "channels": 13,
+        "evidence": {
+          "E2": 16,
+          "E3": 30,
+          "E1": 3,
+          "E5": 1,
+          "E4": 1,
+          "E0": 1
+        },
+        "risk": {
+          "low": 13,
+          "moderate": 26,
+          "high": 13
+        },
+        "high_n": 13,
+        "corrective_n": 1
+      },
+      "macronutrient_or_metabolic_management": {
+        "n": 48,
+        "videos": 15,
+        "channels": 10,
+        "evidence": {
+          "E2": 22,
+          "E0": 7,
+          "E1": 13,
+          "E4": 3,
+          "E3": 3
+        },
+        "risk": {
+          "low": 17,
+          "moderate": 25,
+          "high": 6
+        },
+        "high_n": 6,
+        "corrective_n": 5
+      },
+      "other_specified": {
+        "n": 45,
+        "videos": 18,
+        "channels": 11,
+        "evidence": {
+          "E3": 30,
+          "E1": 2,
+          "E5": 1,
+          "E2": 7,
+          "E0": 2,
+          "E4": 3
+        },
+        "risk": {
+          "moderate": 20,
+          "high": 16,
+          "low": 9
+        },
+        "high_n": 16,
+        "corrective_n": 1
+      },
+      "micronutrient_repletion_or_deficiency": {
+        "n": 19,
+        "videos": 8,
+        "channels": 5,
+        "evidence": {
+          "E4": 2,
+          "E2": 8,
+          "E3": 7,
+          "E0": 2
+        },
+        "risk": {
+          "high": 6,
+          "moderate": 7,
+          "low": 6
+        },
+        "high_n": 6,
+        "corrective_n": 1
+      },
+      "food_ingredient_safety_or_carcinogenicity": {
+        "n": 16,
+        "videos": 9,
+        "channels": 6,
+        "evidence": {
+          "E3": 2,
+          "E4": 7,
+          "E2": 4,
+          "E1": 3
+        },
+        "risk": {
+          "moderate": 9,
+          "low": 5,
+          "high": 2
+        },
+        "high_n": 2,
+        "corrective_n": 0
+      },
+      "raw_food_or_food_safety": {
+        "n": 1,
+        "videos": 1,
+        "channels": 1,
+        "evidence": {
+          "E0": 1
+        },
+        "risk": {
+          "low": 1
+        },
+        "high_n": 0,
+        "corrective_n": 1
+      }
+    },
+    "misinformation_theme": {
+      "supplement_as_anti_cancer_therapy": {
+        "n": 108,
+        "videos": 29,
+        "channels": 11,
+        "evidence": {
+          "E3": 79,
+          "E0": 6,
+          "E4": 3,
+          "E2": 13,
+          "E5": 5,
+          "E1": 2
+        },
+        "risk": {
+          "high": 44,
+          "moderate": 49,
+          "low": 15
+        },
+        "high_n": 44,
+        "corrective_n": 7
+      },
+      "single_nutrient_or_ingredient_therapeutic_effect": {
+        "n": 96,
+        "videos": 33,
+        "channels": 16,
+        "evidence": {
+          "E2": 17,
+          "E3": 60,
+          "E0": 2,
+          "E4": 9,
+          "E1": 8
+        },
+        "risk": {
+          "low": 14,
+          "moderate": 49,
+          "high": 33
+        },
+        "high_n": 33,
+        "corrective_n": 1
+      },
+      "immune_enhancement_as_cancer_therapy": {
+        "n": 50,
+        "videos": 27,
+        "channels": 16,
+        "evidence": {
+          "E2": 17,
+          "E3": 24,
+          "E4": 2,
+          "E0": 2,
+          "E5": 2,
+          "E1": 3
+        },
+        "risk": {
+          "low": 15,
+          "moderate": 28,
+          "high": 7
+        },
+        "high_n": 7,
+        "corrective_n": 0
+      },
+      "none_identified": {
+        "n": 49,
+        "videos": 29,
+        "channels": 15,
+        "evidence": {
+          "E1": 2,
+          "E0": 20,
+          "E2": 24,
+          "E5": 1,
+          "E4": 2
+        },
+        "risk": {
+          "moderate": 10,
+          "low": 38,
+          "high": 1
+        },
+        "high_n": 1,
+        "corrective_n": 2
+      },
+      "commercialized_vague_health_claim": {
+        "n": 47,
+        "videos": 23,
+        "channels": 11,
+        "evidence": {
+          "E3": 14,
+          "E1": 3,
+          "E4": 9,
+          "E2": 21
+        },
+        "risk": {
+          "moderate": 28,
+          "high": 10,
+          "low": 9
+        },
+        "high_n": 10,
+        "corrective_n": 0
+      },
+      "commercial_product_potency_or_selection_claim": {
+        "n": 32,
+        "videos": 15,
+        "channels": 5,
+        "evidence": {
+          "E4": 5,
+          "E2": 13,
+          "E3": 10,
+          "E5": 3,
+          "E1": 1
+        },
+        "risk": {
+          "high": 12,
+          "moderate": 18,
+          "low": 2
+        },
+        "high_n": 12,
+        "corrective_n": 0
+      },
+      "universal_cancer_diet": {
+        "n": 22,
+        "videos": 13,
+        "channels": 9,
+        "evidence": {
+          "E2": 10,
+          "E1": 7,
+          "E4": 3,
+          "E3": 2
+        },
+        "risk": {
+          "moderate": 17,
+          "high": 4,
+          "low": 1
+        },
+        "high_n": 4,
+        "corrective_n": 0
+      },
+      "antioxidant_chemotherapy_interaction_claim": {
+        "n": 18,
+        "videos": 12,
+        "channels": 6,
+        "evidence": {
+          "E3": 10,
+          "E2": 5,
+          "E4": 1,
+          "E1": 2
+        },
+        "risk": {
+          "moderate": 7,
+          "low": 7,
+          "high": 4
+        },
+        "high_n": 4,
+        "corrective_n": 1
+      },
+      "carbohydrate_sugar_absolutism": {
+        "n": 16,
+        "videos": 9,
+        "channels": 7,
+        "evidence": {
+          "E2": 4,
+          "E0": 3,
+          "E1": 7,
+          "E4": 2
+        },
+        "risk": {
+          "low": 5,
+          "moderate": 9,
+          "high": 2
+        },
+        "high_n": 2,
+        "corrective_n": 4
+      },
+      "ingredient_carcinogenicity_or_natural_safety_framing": {
+        "n": 11,
+        "videos": 4,
+        "channels": 3,
+        "evidence": {
+          "E4": 5,
+          "E2": 3,
+          "E1": 3
+        },
+        "risk": {
+          "moderate": 7,
+          "low": 4
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "not_assessable": {
+        "n": 7,
+        "videos": 7,
+        "channels": 6,
+        "evidence": {
+          "E2": 4,
+          "E5": 1,
+          "E3": 1,
+          "E1": 1
+        },
+        "risk": {
+          "low": 2,
+          "high": 2,
+          "moderate": 3
+        },
+        "high_n": 2,
+        "corrective_n": 0
+      },
+      "detox_or_alkaline_pseudoscience": {
+        "n": 4,
+        "videos": 3,
+        "channels": 2,
+        "evidence": {
+          "E2": 1,
+          "E4": 2,
+          "E3": 1
+        },
+        "risk": {
+          "moderate": 1,
+          "high": 3
+        },
+        "high_n": 3,
+        "corrective_n": 0
+      },
+      "raw_natural_diet_as_immune_therapy": {
+        "n": 1,
+        "videos": 1,
+        "channels": 1,
+        "evidence": {
+          "E3": 1
+        },
+        "risk": {
+          "moderate": 1
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      }
+    },
+    "risk_domain": {
+      "unsafe_supplement_use": {
+        "n": 207,
+        "videos": 41,
+        "channels": 18,
+        "evidence": {
+          "E4": 17,
+          "E3": 96,
+          "E2": 72,
+          "E0": 8,
+          "E5": 5,
+          "E1": 9
+        },
+        "risk": {
+          "high": 59,
+          "moderate": 101,
+          "low": 47
+        },
+        "high_n": 59,
+        "corrective_n": 3
+      },
+      "delayed_or_refused_treatment": {
+        "n": 89,
+        "videos": 29,
+        "channels": 13,
+        "evidence": {
+          "E0": 2,
+          "E3": 66,
+          "E4": 5,
+          "E2": 8,
+          "E5": 4,
+          "E1": 4
+        },
+        "risk": {
+          "low": 8,
+          "high": 36,
+          "moderate": 45
+        },
+        "high_n": 36,
+        "corrective_n": 3
+      },
+      "financial_decision_burden": {
+        "n": 71,
+        "videos": 30,
+        "channels": 17,
+        "evidence": {
+          "E3": 26,
+          "E2": 29,
+          "E1": 4,
+          "E4": 10,
+          "E0": 1,
+          "E5": 1
+        },
+        "risk": {
+          "moderate": 47,
+          "low": 13,
+          "high": 11
+        },
+        "high_n": 11,
+        "corrective_n": 0
+      },
+      "inadequate_intake_cachexia": {
+        "n": 62,
+        "videos": 29,
+        "channels": 18,
+        "evidence": {
+          "E3": 9,
+          "E1": 16,
+          "E2": 26,
+          "E0": 6,
+          "E4": 5
+        },
+        "risk": {
+          "moderate": 37,
+          "low": 19,
+          "high": 6
+        },
+        "high_n": 6,
+        "corrective_n": 5
+      },
+      "nutritional_imbalance": {
+        "n": 48,
+        "videos": 20,
+        "channels": 14,
+        "evidence": {
+          "E1": 16,
+          "E2": 20,
+          "E3": 3,
+          "E4": 6,
+          "E0": 3
+        },
+        "risk": {
+          "moderate": 34,
+          "low": 12,
+          "high": 2
+        },
+        "high_n": 2,
+        "corrective_n": 1
+      },
+      "none_identified": {
+        "n": 21,
+        "videos": 9,
+        "channels": 5,
+        "evidence": {
+          "E2": 4,
+          "E3": 2,
+          "E0": 15
+        },
+        "risk": {
+          "low": 21
+        },
+        "high_n": 0,
+        "corrective_n": 5
+      },
+      "unclear": {
+        "n": 7,
+        "videos": 7,
+        "channels": 5,
+        "evidence": {
+          "E2": 4,
+          "E3": 1,
+          "E1": 1,
+          "E4": 1
+        },
+        "risk": {
+          "low": 3,
+          "moderate": 4
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "veterinary_mistrust": {
+        "n": 4,
+        "videos": 4,
+        "channels": 2,
+        "evidence": {
+          "E5": 2,
+          "E3": 1,
+          "E4": 1
+        },
+        "risk": {
+          "high": 4
+        },
+        "high_n": 4,
+        "corrective_n": 0
+      },
+      "food_safety_risk": {
+        "n": 1,
+        "videos": 1,
+        "channels": 1,
+        "evidence": {
+          "E0": 1
+        },
+        "risk": {
+          "low": 1
+        },
+        "high_n": 0,
+        "corrective_n": 1
+      }
+    },
+    "species": {
+      "companion_animal_general": {
+        "n": 132,
+        "videos": 21,
+        "channels": 7,
+        "evidence": {
+          "E2": 46,
+          "E0": 20,
+          "E1": 13,
+          "E3": 41,
+          "E4": 8,
+          "E5": 4
+        },
+        "risk": {
+          "low": 47,
+          "moderate": 64,
+          "high": 21
+        },
+        "high_n": 21,
+        "corrective_n": 8
+      },
+      "both": {
+        "n": 80,
+        "videos": 17,
+        "channels": 7,
+        "evidence": {
+          "E2": 27,
+          "E3": 35,
+          "E4": 8,
+          "E0": 4,
+          "E1": 4,
+          "E5": 2
+        },
+        "risk": {
+          "low": 16,
+          "high": 26,
+          "moderate": 38
+        },
+        "high_n": 26,
+        "corrective_n": 1
+      },
+      "dog": {
+        "n": 76,
+        "videos": 22,
+        "channels": 17,
+        "evidence": {
+          "E3": 17,
+          "E2": 32,
+          "E1": 10,
+          "E0": 8,
+          "E5": 1,
+          "E4": 8
+        },
+        "risk": {
+          "moderate": 41,
+          "low": 31,
+          "high": 4
+        },
+        "high_n": 4,
+        "corrective_n": 4
+      },
+      "cat": {
+        "n": 17,
+        "videos": 7,
+        "channels": 2,
+        "evidence": {
+          "E3": 11,
+          "E2": 4,
+          "E4": 1,
+          "E1": 1
+        },
+        "risk": {
+          "high": 10,
+          "moderate": 5,
+          "low": 2
+        },
+        "high_n": 10,
+        "corrective_n": 0
+      },
+      "unclear": {
+        "n": 4,
+        "videos": 3,
+        "channels": 2,
+        "evidence": {
+          "E3": 3,
+          "E0": 1
+        },
+        "risk": {
+          "moderate": 2,
+          "low": 1,
+          "high": 1
+        },
+        "high_n": 1,
+        "corrective_n": 1
+      }
+    },
+    "cancer_specificity": {
+      "general_cancer": {
+        "n": 212,
+        "videos": 43,
+        "channels": 21,
+        "evidence": {
+          "E3": 86,
+          "E2": 65,
+          "E0": 24,
+          "E1": 17,
+          "E4": 16,
+          "E5": 4
+        },
+        "risk": {
+          "moderate": 99,
+          "low": 68,
+          "high": 45
+        },
+        "high_n": 45,
+        "corrective_n": 12
+      },
+      "unspecified": {
+        "n": 73,
+        "videos": 22,
+        "channels": 11,
+        "evidence": {
+          "E1": 6,
+          "E2": 36,
+          "E0": 7,
+          "E4": 8,
+          "E3": 13,
+          "E5": 3
+        },
+        "risk": {
+          "moderate": 36,
+          "low": 21,
+          "high": 16
+        },
+        "high_n": 16,
+        "corrective_n": 2
+      },
+      "other_specified": {
+        "n": 10,
+        "videos": 6,
+        "channels": 6,
+        "evidence": {
+          "E1": 1,
+          "E0": 1,
+          "E3": 5,
+          "E2": 2,
+          "E4": 1
+        },
+        "risk": {
+          "moderate": 7,
+          "low": 2,
+          "high": 1
+        },
+        "high_n": 1,
+        "corrective_n": 0
+      },
+      "lymphoma": {
+        "n": 9,
+        "videos": 4,
+        "channels": 3,
+        "evidence": {
+          "E1": 4,
+          "E3": 1,
+          "E2": 3,
+          "E0": 1
+        },
+        "risk": {
+          "moderate": 6,
+          "low": 3
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "mammary_tumor": {
+        "n": 3,
+        "videos": 3,
+        "channels": 2,
+        "evidence": {
+          "E3": 1,
+          "E2": 2
+        },
+        "risk": {
+          "low": 3
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "oral_tumor": {
+        "n": 2,
+        "videos": 1,
+        "channels": 1,
+        "evidence": {
+          "E2": 1,
+          "E3": 1
+        },
+        "risk": {
+          "moderate": 2
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      }
+    },
+    "treatment_context": {
+      "unspecified": {
+        "n": 217,
+        "videos": 35,
+        "channels": 15,
+        "evidence": {
+          "E1": 18,
+          "E2": 76,
+          "E0": 29,
+          "E4": 17,
+          "E3": 71,
+          "E5": 6
+        },
+        "risk": {
+          "moderate": 110,
+          "low": 60,
+          "high": 47
+        },
+        "high_n": 47,
+        "corrective_n": 14
+      },
+      "during_chemotherapy": {
+        "n": 36,
+        "videos": 13,
+        "channels": 10,
+        "evidence": {
+          "E3": 14,
+          "E2": 14,
+          "E4": 2,
+          "E0": 4,
+          "E1": 2
+        },
+        "risk": {
+          "high": 7,
+          "moderate": 14,
+          "low": 15
+        },
+        "high_n": 7,
+        "corrective_n": 0
+      },
+      "surveillance_or_prevention": {
+        "n": 36,
+        "videos": 15,
+        "channels": 12,
+        "evidence": {
+          "E3": 12,
+          "E2": 12,
+          "E5": 1,
+          "E1": 5,
+          "E4": 6
+        },
+        "risk": {
+          "moderate": 18,
+          "low": 16,
+          "high": 2
+        },
+        "high_n": 2,
+        "corrective_n": 0
+      },
+      "palliative_care": {
+        "n": 8,
+        "videos": 5,
+        "channels": 2,
+        "evidence": {
+          "E3": 6,
+          "E2": 2
+        },
+        "risk": {
+          "moderate": 5,
+          "high": 3
+        },
+        "high_n": 3,
+        "corrective_n": 0
+      },
+      "radiation_therapy": {
+        "n": 5,
+        "videos": 2,
+        "channels": 1,
+        "evidence": {
+          "E3": 1,
+          "E2": 2,
+          "E1": 2
+        },
+        "risk": {
+          "moderate": 1,
+          "low": 4
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "terminal_cancer": {
+        "n": 5,
+        "videos": 2,
+        "channels": 1,
+        "evidence": {
+          "E3": 3,
+          "E2": 1,
+          "E1": 1
+        },
+        "risk": {
+          "high": 3,
+          "moderate": 2
+        },
+        "high_n": 3,
+        "corrective_n": 0
+      },
+      "post_surgery": {
+        "n": 2,
+        "videos": 1,
+        "channels": 1,
+        "evidence": {
+          "E2": 2
+        },
+        "risk": {
+          "low": 2
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      }
+    },
+    "claim_target": {
+      "cancer_treatment": {
+        "n": 149,
+        "videos": 34,
+        "channels": 15,
+        "evidence": {
+          "E2": 26,
+          "E1": 12,
+          "E4": 11,
+          "E0": 6,
+          "E3": 88,
+          "E5": 6
+        },
+        "risk": {
+          "low": 19,
+          "moderate": 78,
+          "high": 52
+        },
+        "high_n": 52,
+        "corrective_n": 7
+      },
+      "supportive_care": {
+        "n": 104,
+        "videos": 32,
+        "channels": 14,
+        "evidence": {
+          "E2": 59,
+          "E0": 26,
+          "E1": 8,
+          "E4": 6,
+          "E3": 5
+        },
+        "risk": {
+          "low": 56,
+          "moderate": 41,
+          "high": 7
+        },
+        "high_n": 7,
+        "corrective_n": 7
+      },
+      "cancer_prevention": {
+        "n": 35,
+        "videos": 15,
+        "channels": 12,
+        "evidence": {
+          "E3": 12,
+          "E2": 12,
+          "E5": 1,
+          "E1": 5,
+          "E4": 5
+        },
+        "risk": {
+          "moderate": 17,
+          "low": 16,
+          "high": 2
+        },
+        "high_n": 2,
+        "corrective_n": 0
+      },
+      "general_health": {
+        "n": 21,
+        "videos": 12,
+        "channels": 8,
+        "evidence": {
+          "E1": 3,
+          "E2": 12,
+          "E3": 2,
+          "E0": 1,
+          "E4": 3
+        },
+        "risk": {
+          "moderate": 14,
+          "low": 6,
+          "high": 1
+        },
+        "high_n": 1,
+        "corrective_n": 0
+      }
+    },
+    "claim_orientation": {
+      "endorsed": {
+        "n": 219,
+        "videos": 45,
+        "channels": 22,
+        "evidence": {
+          "E3": 86,
+          "E2": 70,
+          "E0": 13,
+          "E1": 23,
+          "E4": 20,
+          "E5": 7
+        },
+        "risk": {
+          "moderate": 114,
+          "low": 49,
+          "high": 56
+        },
+        "high_n": 56,
+        "corrective_n": 0
+      },
+      "cautious_qualified": {
+        "n": 34,
+        "videos": 19,
+        "channels": 9,
+        "evidence": {
+          "E1": 1,
+          "E2": 19,
+          "E3": 6,
+          "E0": 7,
+          "E4": 1
+        },
+        "risk": {
+          "moderate": 10,
+          "low": 24
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      },
+      "commercial_promotional": {
+        "n": 29,
+        "videos": 13,
+        "channels": 5,
+        "evidence": {
+          "E2": 11,
+          "E3": 13,
+          "E1": 2,
+          "E4": 3
+        },
+        "risk": {
+          "moderate": 21,
+          "low": 2,
+          "high": 6
+        },
+        "high_n": 6,
+        "corrective_n": 0
+      },
+      "corrective": {
+        "n": 14,
+        "videos": 9,
+        "channels": 5,
+        "evidence": {
+          "E2": 1,
+          "E0": 12,
+          "E3": 1
+        },
+        "risk": {
+          "low": 13,
+          "moderate": 1
+        },
+        "high_n": 0,
+        "corrective_n": 14
+      },
+      "descriptive_neutral": {
+        "n": 13,
+        "videos": 9,
+        "channels": 9,
+        "evidence": {
+          "E1": 2,
+          "E0": 1,
+          "E2": 8,
+          "E3": 1,
+          "E4": 1
+        },
+        "risk": {
+          "moderate": 4,
+          "low": 9
+        },
+        "high_n": 0,
+        "corrective_n": 0
+      }
+    }
+  },
+  "evidence_risk": {
+    "E0": {
+      "low": 33
+    },
+    "E1": {
+      "moderate": 21,
+      "low": 6,
+      "high": 1
+    },
+    "E2": {
+      "low": 52,
+      "moderate": 55,
+      "high": 2
+    },
+    "E3": {
+      "moderate": 62,
+      "low": 5,
+      "high": 40
+    },
+    "E4": {
+      "high": 12,
+      "moderate": 12,
+      "low": 1
+    },
+    "E5": {
+      "high": 7
+    }
+  },
+  "sensitivity": {
+    "영상별 최신 이력의 적격 주장 (주분석)": {
+      "n": 309,
+      "videos": 49,
+      "channels": 23,
+      "evidence": {
+        "E3": 107,
+        "E2": 109,
+        "E1": 28,
+        "E0": 33,
+        "E4": 25,
+        "E5": 7
+      },
+      "risk": {
+        "moderate": 150,
+        "low": 97,
+        "high": 62
+      }
+    },
+    "모든 분석 이력의 적격 주장": {
+      "n": 337,
+      "videos": 49,
+      "channels": 23,
+      "evidence": {
+        "E3": 113,
+        "E2": 118,
+        "E1": 33,
+        "E0": 40,
+        "E4": 26,
+        "E5": 7
+      },
+      "risk": {
+        "moderate": 164,
+        "low": 111,
+        "high": 62
+      }
+    },
+    "주분석 중 전사 완료 표시 영상만": {
+      "n": 301,
+      "videos": 48,
+      "channels": 22,
+      "evidence": {
+        "E3": 104,
+        "E2": 106,
+        "E1": 28,
+        "E0": 33,
+        "E4": 24,
+        "E5": 6
+      },
+      "risk": {
+        "moderate": 147,
+        "low": 96,
+        "high": 58
+      }
+    },
+    "주분석에서 일반 건강 target 제외": {
+      "n": 288,
+      "videos": 48,
+      "channels": 23,
+      "evidence": {
+        "E3": 105,
+        "E2": 97,
+        "E0": 32,
+        "E1": 25,
+        "E4": 22,
+        "E5": 7
+      },
+      "risk": {
+        "moderate": 136,
+        "low": 91,
+        "high": 61
+      }
+    },
+    "주분석 중 암 치료·암 예방 target만": {
+      "n": 184,
+      "videos": 44,
+      "channels": 21,
+      "evidence": {
+        "E3": 100,
+        "E2": 38,
+        "E1": 17,
+        "E4": 16,
+        "E0": 6,
+        "E5": 7
+      },
+      "risk": {
+        "moderate": 95,
+        "low": 35,
+        "high": 54
+      }
+    },
+    "주분석에서 최다 고위험 채널 C01 제외": {
+      "n": 208,
+      "videos": 36,
+      "channels": 22,
+      "evidence": {
+        "E3": 57,
+        "E2": 76,
+        "E1": 25,
+        "E0": 32,
+        "E4": 14,
+        "E5": 4
+      },
+      "risk": {
+        "moderate": 104,
+        "low": 87,
+        "high": 17
+      }
+    }
+  },
+  "high_risk_channel_counts": {
+    "C05": 1,
+    "C06": 4,
+    "C02": 7,
+    "C01": 45,
+    "C08": 1,
+    "C20": 1,
+    "C19": 3
+  },
+  "audit": {
+    "unique_ids_and_complete_join": true,
+    "review_matches_csv_json": true,
+    "decision_hashes_and_values_match": true,
+    "codebook_hash_matches": true,
+    "input_snapshot_hash_matches": true,
+    "raw_suggested_hashes_match_backup": true,
+    "latest_flag_matches_creation_order": true,
+    "duplicate_targets_eligible_in_same_job": true,
+    "technical_claim_validation": {
+      "verified": 162,
+      "needs_review": 147
+    },
+    "review_status": {
+      "pending_manual_review": 309
+    },
+    "adjudication_status": {
+      "single_coded": 309
+    },
+    "expert_review_required": 239
+  }
+}
