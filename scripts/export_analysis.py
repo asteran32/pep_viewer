@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Publish the approved RQ1–3 report and aggregate charts as static GitHub Pages files.
 
-Uses only the standard library. Reads the report folder without changing its files.
+Uses the Python standard library and managed Artifact Tool for XLSX generation.
+Reads the report folder without changing its files.
 Only selected public claim fields are bundled; full transcripts, configuration,
 local databases and personal filesystem paths are excluded.
 """
@@ -17,6 +18,7 @@ from urllib.parse import urlencode
 
 import export_codebook as markdown
 from channel_analysis import load_channel_data, render_channel_analysis
+from analysis_downloads import export_downloads
 
 SITE = Path(__file__).resolve().parents[1]
 SOURCE = SITE.parent / 'outputs' / 'rq1-3-gpt6-2026-10-25'
@@ -248,6 +250,7 @@ def export_analysis(source, site, review_source=REVIEW_SOURCE, channel_source=CH
     (assets / 'rq1_claims.json').write_text(json.dumps(rq1_data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     (assets / 'channel_analysis.json').write_text(json.dumps(channel_data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     shutil.copyfile(channel_source / 'channel_summary.csv', assets / 'channel_summary.csv')
+    downloads = export_downloads(site, rq1_data, channel_source)
     names = ['rq1_interventions', 'rq2_evidence_risk', 'rq3_theme_risk']
     for name in names:
         shutil.copyfile(source / 'figures' / (name + '.png'), assets / 'figures' / (name + '.png'))
@@ -278,6 +281,7 @@ def export_analysis(source, site, review_source=REVIEW_SOURCE, channel_source=CH
                                  'displayed_types': len(channel_data['types']),
                                  'channels': len(channel_data['channels']),
                                  'source_sha256': channel_data['source_sha256']}
+    provenance['downloads'] = downloads
     (assets / 'manifest.json').write_text(json.dumps(provenance,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
     markdown.inline = report_inline
@@ -321,6 +325,15 @@ def export_analysis(source, site, review_source=REVIEW_SOURCE, channel_source=CH
       <div class="analysis-heading-actions"><time datetime="2026-10-25">분석일 2026.10.25</time>
       <a class="analysis-download" href="./assets/analysis/RQ1-3_analysis.md" download>보고서 다운로드 <span aria-hidden="true">↓</span></a></div>
     </section>
+    <nav class="analysis-data-downloads" aria-label="분석 자료 다운로드">
+      <div class="analysis-data-scope"><strong>분석 자료 다운로드</strong><span>주장 309건 · 채널 23개 · XLSX는 집계 포함</span></div>
+      <div class="analysis-data-links">
+        <a class="analysis-data-excel" href="./assets/analysis/analysis_data.xlsx" download>전체 자료 XLSX <span aria-hidden="true">↓</span></a>
+        <a href="./assets/analysis/claims.csv" download>주장 CSV <span aria-hidden="true">↓</span></a>
+        <a href="./assets/analysis/channel_summary.csv" download>채널 CSV <span aria-hidden="true">↓</span></a>
+        <a href="./assets/analysis/type_summary.csv" download>유형 CSV <span aria-hidden="true">↓</span></a>
+      </div>
+    </nav>
     <div class="analysis-layout">
       <nav class="analysis-toc" aria-label="분석 목차"><p class="analysis-toc-label">이 페이지에서</p>
         <a href="#overview" aria-current="location"><span>00</span>분석 개요</a>

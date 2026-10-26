@@ -13,5 +13,16 @@
       "channel_coding.json": "41bb31a1aaa30052dcbd1ac3d089cd86c7489e2fff0e9883c812ef00d3ff3699",
       "channel_summary.csv": "564369e661bbd082c34d1c44f93a3b6accf8109e8c5ec1f53f0c729004d8667a"
     }
+  },
+  "downloads": {
+    "claims": 309,
+    "channels": 23,
+    "type_rows": 6,
+    "sha256": {
+      "claims.csv": "f34a0c57f8b489fc72be581ea71b454bc77a40cea45168ba1fa82ff8f6a51fbe",
+      "channel_summary.csv": "564369e661bbd082c34d1c44f93a3b6accf8109e8c5ec1f53f0c729004d8667a",
+      "type_summary.csv": "30e218ab6330c689418970483f3f8c9a3afeac074cf954d9bb4f7b649fa21781",
+      "analysis_data.xlsx": "c0933c2a0dab7bc90e99404b98cd2fecb2d660dbe6375a11156930cd5abbba40"
+    }
   }
 }

@@ -1,20 +1,76 @@
 import importlib.util
+import csv
+import hashlib
 import json
 from pathlib import Path
 import sys
 import tempfile
 import unittest
+import xml.etree.ElementTree as ET
+import zipfile
 
 SITE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SITE / 'scripts'))
 spec = importlib.util.spec_from_file_location('analysis_export', SITE / 'scripts' / 'export_analysis.py')
 analysis = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(analysis)
+from analysis_downloads import claim_table, csv_value
 
 
 class AnalysisExportTests(unittest.TestCase):
     def setUp(self):
         self.summary = json.loads((SITE / 'assets/analysis/summary.json').read_text())
+
+    def test_download_csv_preserves_the_public_cohort_and_all_claim_fields(self):
+        data = json.loads((SITE / 'assets/analysis/rq1_claims.json').read_text())
+        table = claim_table(data)
+        with (SITE / 'assets/analysis/claims.csv').open(encoding='utf-8-sig', newline='') as handle:
+            exported = list(csv.reader(handle))
+        self.assertEqual(exported[0], table['headers'])
+        self.assertEqual(exported[1:], [[str(csv_value(value)) for value in row] for row in table['rows']])
+        self.assertEqual(len(exported) - 1, self.summary['primary']['n'])
+        self.assertEqual({row[0] for row in exported[1:]}, {row['claim_id'] for row in data['claims']})
+        for name, digest in json.loads((SITE / 'assets/analysis/manifest.json').read_text())['downloads']['sha256'].items():
+            self.assertEqual(hashlib.sha256((SITE / 'assets/analysis' / name).read_bytes()).hexdigest(), digest)
+
+    def test_workbook_matches_all_three_csvs_without_losing_text_or_missing_rates(self):
+        ns = {'s': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
+        data = json.loads((SITE / 'assets/analysis/rq1_claims.json').read_text())
+        table = claim_table(data)
+        expected = [[table['headers'], *table['rows']]]
+        for name in ['channel_summary.csv', 'type_summary.csv']:
+            with (SITE / 'assets/analysis' / name).open(encoding='utf-8-sig', newline='') as handle:
+                expected.append(list(csv.reader(handle)))
+        with zipfile.ZipFile(SITE / 'assets/analysis/analysis_data.xlsx') as archive:
+            shared = ET.fromstring(archive.read('xl/sharedStrings.xml')) if 'xl/sharedStrings.xml' in archive.namelist() else []
+            strings = [''.join(item.itertext()) for item in shared]
+            workbook = ET.fromstring(archive.read('xl/workbook.xml'))
+            self.assertEqual([sheet.get('name') for sheet in workbook.find('s:sheets', ns)],
+                             ['주장 309건', '채널별 집계', '유형별 집계'])
+            for index, rows in enumerate(expected, 1):
+                sheet = ET.fromstring(archive.read(f'xl/worksheets/sheet{index}.xml'))
+                cells = {}
+                for cell in sheet.findall('.//s:sheetData/s:row/s:c', ns):
+                    value = cell.find('s:v', ns)
+                    text = value.text if value is not None and value.text is not None else ''
+                    if cell.get('t') == 's': text = strings[int(text)]
+                    if cell.get('t') == 'inlineStr': text = ''.join(cell.find('s:is', ns).itertext())
+                    self.assertIsNone(cell.find('s:f', ns), cell.get('r'))
+                    self.assertNotEqual(cell.get('t'), 'e', cell.get('r'))
+                    cells[cell.get('r')] = text
+                for r, values in enumerate(rows, 1):
+                    for c, value in enumerate(values, 1):
+                        column, number = '', c
+                        while number:
+                            number, digit = divmod(number - 1, 26)
+                            column = chr(65 + digit) + column
+                        actual = cells.get(f'{column}{r}', '')
+                        # CSV percentages/counts are strings; XLSX retains numeric types.
+                        if r > 1 and index > 1 and rows[0][c - 1].endswith('_pct') and value != '':
+                            self.assertEqual(float(actual), float(value))
+                        else:
+                            self.assertEqual(actual, str(value), (index, r, c))
+                self.assertEqual(sheet.find('.//s:pane', ns).get('state'), 'frozen')
 
     def test_detail_cohort_matches_every_chart_and_reviewed_grade(self):
         data = json.loads((SITE / 'assets/analysis/rq1_claims.json').read_text())

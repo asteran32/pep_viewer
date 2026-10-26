@@ -6,7 +6,8 @@ const http = require('node:http');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const mime = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json',
-  '.svg':'image/svg+xml','.png':'image/png','.md':'text/markdown; charset=utf-8'};
+  '.svg':'image/svg+xml','.png':'image/png','.md':'text/markdown; charset=utf-8',
+  '.csv':'text/csv; charset=utf-8','.xlsx':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'};
 
 (async () => {
   const artifacts = path.join(root, 'artifacts', 'analysis');
@@ -49,6 +50,18 @@ const mime = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.js
     assert.equal(await page.getByRole('heading',{name:'분모가 바뀌면 결과는 어떻게 달라지는가?',exact:true}).count(),0);
     assert.equal(await page.locator('.analysis-toc a[href="#methods"]').count(),0);
     assert.equal(await page.locator('.analysis-toc a[href="#report"]').textContent(),'04보고서 전문');
+    // Native downloads must resolve under a GitHub Pages subpath and preserve every byte.
+    assert.equal(await page.locator('.analysis-data-downloads a[download]').count(),4);
+    for (const name of ['analysis_data.xlsx','claims.csv','channel_summary.csv','type_summary.csv']) {
+      const event = page.waitForEvent('download');
+      await page.locator(`.analysis-data-downloads a[href$="/${name}"]`).click();
+      const file = await event;
+      assert.equal(file.suggestedFilename(),name);
+      const saved = path.join(artifacts,name);
+      await file.saveAs(saved);
+      assert.equal(await file.failure(),null);
+      assert.deepEqual(await fs.readFile(saved),await fs.readFile(path.join(root,'assets/analysis',name)));
+    }
     await page.screenshot({path:path.join(artifacts,'desktop-overview.png')});
 
     // The rendered bars preserve actual numerators and denominators, including multi-label outcomes.
@@ -395,6 +408,7 @@ const mime = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.js
     for (const width of [768,390,320]) {
       await page.setViewportSize({width,height:900});
       await page.evaluate(()=>scrollTo(0,0));
+      for (const link of await page.locator('.analysis-data-downloads a').all()) assert.ok(await link.isVisible());
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`overflow at ${width}`);
       await page.screenshot({path:path.join(artifacts,`overview-${width}.png`)});
       await page.locator('.analysis-toc a[href="#rq3"]').click();
@@ -416,6 +430,12 @@ const mime = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.js
     await route(plainContext);
     const plain = await plainContext.newPage();
     await plain.goto(origin+'analysis.html');
+    assert.equal(await plain.locator('.analysis-data-downloads a[download]:visible').count(),4);
+    const plainDownload = plain.waitForEvent('download');
+    await plain.locator('.analysis-data-downloads a[href$="/analysis_data.xlsx"]').click();
+    const plainFile = await plainDownload;
+    assert.equal(plainFile.suggestedFilename(),'analysis_data.xlsx');
+    assert.equal(await plainFile.failure(),null);
     assert.equal(await plain.locator('#intervention-chart .bar-row:visible').count(),8);
     assert.equal(await plain.locator('[data-channel-row]:visible').count(),23);
     assert.equal(await plain.locator('.channel-distribution>li').count(),5);
