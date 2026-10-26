@@ -226,7 +226,10 @@ def render_results(data):
 
 def render_channel_analysis(data):
     return f'''<section id="channel-analysis" class="channel-analysis" aria-labelledby="channel-analysis-title">
-      <div class="channel-analysis-heading"><div><p class="section-kicker">RQ3 · 채널 메타데이터 분석</p><h3 id="channel-analysis-title">채널 유형과 위험 분포</h3></div><span>23개 채널 · 49개 영상 · 309개 주장</span></div>
+      <div class="channel-analysis-heading section-heading-row">
+        <div class="section-heading-copy"><p class="section-kicker">RQ3 · 채널 메타데이터 분석</p><h3 id="channel-analysis-title">채널 유형과 위험 분포</h3><p class="channel-analysis-count">23개 채널 · 49개 영상 · 309개 주장</p></div>
+        <div class="section-heading-actions"><a class="section-data-download" href="./assets/analysis/channel_summary.xlsx" download>채널 XLSX <span aria-hidden="true">↓</span></a></div>
+      </div>
       <p class="channel-coding-note">제목·설명·채널명과 일부 공식 소개에 따른 잠정 분류입니다. 채널 운영자와 출연 전문가를 구분했으며, 개인 면허 확인을 뜻하지 않습니다.</p>
       <nav class="channel-section-nav" aria-label="채널 분석 바로가기"><a href="#channel-type-distribution">유형 내 분포</a><a href="#channel-composition">위험도별 구성</a><a href="#channel-concentration">집중도 비교</a><a href="#channel-results">채널별 결과</a></nav>
       <section id="channel-type-distribution" class="channel-section" aria-labelledby="channel-type-title"><div class="channel-section-heading"><span>03</span><div><h4 id="channel-type-title">유형 내 위험 분포</h4><p>각 유형의 전체 주장을 100%로 놓고 낮음·중간·높음의 비율을 비교합니다.</p></div></div>
@@ -242,5 +245,5 @@ def render_channel_analysis(data):
       <section id="channel-results" class="channel-section" aria-labelledby="channel-results-title"><div class="channel-section-heading"><span>06</span><div><h4 id="channel-results-title">채널별 결과</h4><p>23개 채널의 위험도별 건수와 채널 유형의 분류 근거를 확인합니다.</p></div></div>
         {render_results(data)}
       </section>
-      <div class="channel-resources"><a href="./assets/analysis/channel_summary.csv" download>채널별 결과 CSV ↓</a><a href="./assets/analysis/channel_analysis.json" download>분류 근거·집계 JSON ↓</a></div>
+      <div class="channel-resources"><a class="section-data-download" href="./assets/analysis/channel_analysis.json" download>분류 근거·집계 JSON <span aria-hidden="true">↓</span></a></div>
     </section>'''

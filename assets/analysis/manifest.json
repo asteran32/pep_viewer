@@ -22,7 +22,10 @@
       "claims.csv": "f34a0c57f8b489fc72be581ea71b454bc77a40cea45168ba1fa82ff8f6a51fbe",
       "channel_summary.csv": "564369e661bbd082c34d1c44f93a3b6accf8109e8c5ec1f53f0c729004d8667a",
       "type_summary.csv": "30e218ab6330c689418970483f3f8c9a3afeac074cf954d9bb4f7b649fa21781",
-      "analysis_data.xlsx": "c0933c2a0dab7bc90e99404b98cd2fecb2d660dbe6375a11156930cd5abbba40"
+      "analysis_data.xlsx": "022cc30b19cf0bd5fe1d63fb1d11bb78e25e99956cfeb6c089fceded67742cb5",
+      "claims.xlsx": "0fc087651e5d3fbb13918826835a35b21cdbc5dd79bec772f4f8a318e26ebffd",
+      "channel_summary.xlsx": "353ac614cc200d1f4025a441fbcd4f946ada88533bb6d62a7bd304c7580054bf",
+      "type_summary.xlsx": "809d5426ca1d49de40abc75582c9a21cd9dffef2e684ecea52c535e6e4037752"
     }
   }
 }

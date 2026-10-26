@@ -329,9 +329,6 @@ def export_analysis(source, site, review_source=REVIEW_SOURCE, channel_source=CH
       <div class="analysis-data-scope"><strong>분석 자료 다운로드</strong><span>주장 309건 · 채널 23개 · XLSX는 집계 포함</span></div>
       <div class="analysis-data-links">
         <a class="analysis-data-excel" href="./assets/analysis/analysis_data.xlsx" download>전체 자료 XLSX <span aria-hidden="true">↓</span></a>
-        <a href="./assets/analysis/claims.csv" download>주장 CSV <span aria-hidden="true">↓</span></a>
-        <a href="./assets/analysis/channel_summary.csv" download>채널 CSV <span aria-hidden="true">↓</span></a>
-        <a href="./assets/analysis/type_summary.csv" download>유형 CSV <span aria-hidden="true">↓</span></a>
       </div>
     </nav>
     <div class="analysis-layout">
@@ -351,7 +348,10 @@ def export_analysis(source, site, review_source=REVIEW_SOURCE, channel_source=CH
           <p class="analysis-note">이전 분석 이력 34행과 중복·비적격·불확실 91행을 제외했습니다. 모든 비율은 이 표본의 기술통계이며, 사람·전문가 합의로 확정된 결과는 아닙니다.</p>
         </section>
         <section id="rq1" class="analysis-section" aria-labelledby="rq1-title">
-          <p class="section-kicker">RQ1 · 주장 유형</p><h2 id="rq1-title" class="section-title">어떤 영양 관련 주장이 나타나는가?</h2>
+          <div class="section-heading-row">
+            <div class="section-heading-copy"><p class="section-kicker">RQ1 · 주장 유형</p><h2 id="rq1-title" class="section-title">어떤 영양 관련 주장이 나타나는가?</h2></div>
+            <div class="section-heading-actions"><a class="section-data-download" href="./assets/analysis/claims.xlsx" download>주장 XLSX <span aria-hidden="true">↓</span></a></div>
+          </div>
           <p class="section-deck">보충제와 개별 식품·성분에 관한 주장이 많습니다. 한 주장에 여러 유형이 부여될 수 있습니다.</p>
           <p class="chart-interaction-hint">막대를 클릭하면 해당 유형으로 분류된 주장과 세부 정보를 볼 수 있습니다. <span aria-hidden="true">↗</span></p>
           <div class="section-takeaway"><p class="takeaway-number">68.93<small>%</small></p><p class="takeaway-caption"><strong>보충제 관련 주장 213/309개</strong><br>37/49개 영상에서 등장</p></div>
@@ -380,7 +380,10 @@ def export_analysis(source, site, review_source=REVIEW_SOURCE, channel_source=CH
           <a class="analysis-detail-link" href="#{report_anchors['rq2']}" data-report-link>RQ2 주제 분류와 판정 예시 <span aria-hidden="true">→</span></a>
         </section>
         <section id="rq3" class="analysis-section" aria-labelledby="rq3-title">
-          <p class="section-kicker">RQ3 · 잠재적 임상 위험</p><h2 id="rq3-title" class="section-title">어떤 주장 유형의 위험도가 높은가?</h2>
+          <div class="section-heading-row">
+            <div class="section-heading-copy"><p class="section-kicker">RQ3 · 잠재적 임상 위험</p><h2 id="rq3-title" class="section-title">어떤 주장 유형의 위험도가 높은가?</h2></div>
+            <div class="section-heading-actions"><a class="section-data-download" href="./assets/analysis/type_summary.xlsx" download>유형 XLSX <span aria-hidden="true">↓</span></a></div>
+          </div>
           <p class="section-deck">보충제를 항암치료로 제시하는 주제와 제품 효능·선택의 우열 주장에서 높은 고위험 비율이 나타납니다.</p>
           <p class="chart-interaction-hint">막대를 클릭하면 해당 주제의 고위험 주장을 볼 수 있습니다. 상세 페이지에서 주제 전체로 전환할 수 있습니다. <span aria-hidden="true">↗</span></p>
           <div class="section-takeaway"><p class="takeaway-number">20.06<small>%</small></p><p class="takeaway-caption"><strong>고위험 주장 62/309개</strong><br>16/49개 영상 · 7/23개 채널</p></div>

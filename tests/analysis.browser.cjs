@@ -51,10 +51,17 @@ const mime = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.js
     assert.equal(await page.locator('.analysis-toc a[href="#methods"]').count(),0);
     assert.equal(await page.locator('.analysis-toc a[href="#report"]').textContent(),'04보고서 전문');
     // Native downloads must resolve under a GitHub Pages subpath and preserve every byte.
-    assert.equal(await page.locator('.analysis-data-downloads a[download]').count(),4);
-    for (const name of ['analysis_data.xlsx','claims.csv','channel_summary.csv','type_summary.csv']) {
+    assert.equal(await page.locator('.analysis-data-downloads a[download]').count(),1);
+    assert.equal(await page.locator('a[download][href$=".csv"]').count(),0);
+    const dataDownloads = [
+      ['analysis_data.xlsx','.analysis-data-downloads'],
+      ['claims.xlsx','#rq1 > .section-heading-row'],
+      ['channel_summary.xlsx','#rq3 .channel-analysis-heading'],
+      ['type_summary.xlsx','#rq3 > .section-heading-row'],
+    ];
+    for (const [name, section] of dataDownloads) {
       const event = page.waitForEvent('download');
-      await page.locator(`.analysis-data-downloads a[href$="/${name}"]`).click();
+      await page.locator(`${section} a[href$="/${name}"]`).click();
       const file = await event;
       assert.equal(file.suggestedFilename(),name);
       const saved = path.join(artifacts,name);
@@ -62,6 +69,10 @@ const mime = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.js
       assert.equal(await file.failure(),null);
       assert.deepEqual(await fs.readFile(saved),await fs.readFile(path.join(root,'assets/analysis',name)));
     }
+    await page.locator('#rq1 > .section-heading-row').screenshot({path:path.join(artifacts,'rq1-download-heading.png')});
+    await page.locator('#rq3 > .section-heading-row').screenshot({path:path.join(artifacts,'rq3-download-heading.png')});
+    await page.locator('.channel-analysis-heading').screenshot({path:path.join(artifacts,'channel-download-heading.png')});
+    await page.evaluate(()=>scrollTo(0,0));
     await page.screenshot({path:path.join(artifacts,'desktop-overview.png')});
 
     // The rendered bars preserve actual numerators and denominators, including multi-label outcomes.
@@ -430,7 +441,7 @@ const mime = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.js
     await route(plainContext);
     const plain = await plainContext.newPage();
     await plain.goto(origin+'analysis.html');
-    assert.equal(await plain.locator('.analysis-data-downloads a[download]:visible').count(),4);
+    assert.equal(await plain.locator('a[download][href$=".xlsx"]:visible').count(),4);
     const plainDownload = plain.waitForEvent('download');
     await plain.locator('.analysis-data-downloads a[href$="/analysis_data.xlsx"]').click();
     const plainFile = await plainDownload;

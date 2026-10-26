@@ -23,14 +23,13 @@ let input = '';
 process.stdin.setEncoding('utf8');
 for await (const chunk of process.stdin) input += chunk;
 const data = JSON.parse(input);
-const workbook = Workbook.create();
 const accent = '#174E40';
 function columnName(index) {
   let value = index + 1, name = '';
   while (value) { name = String.fromCharCode(65 + (value - 1) % 26) + name; value = Math.floor((value - 1) / 26); }
   return name;
 }
-for (const table of data.tables) {
+function addTable(workbook, table) {
   const sheet = workbook.worksheets.add(table.name);
   sheet.showGridLines = false;
   const lastRow = table.rows.length + 1;
@@ -83,14 +82,22 @@ for (const table of data.tables) {
   notes.format.columnWidth = 110;
   notes.format.wrapText = false;
 }
-workbook.recalculate();
-console.log((await workbook.inspect({kind: 'table', range: "'주장 309건'!A1:H3", include: 'values,formulas', tableMaxRows: 3, tableMaxCols: 8, maxChars: 1800})).ndjson);
-console.log((await workbook.inspect({kind: 'match', searchTerm: '#REF!|#DIV/0!|#VALUE!|#NAME\\?|#N/A|#NUM!|#NULL!', options: {useRegex: true, maxResults: 20}, maxChars: 1200, summary: 'final formula error scan'})).ndjson);
-for (const [index, table] of data.tables.entries()) {
-  const preview = await workbook.render({sheetName: table.name, range: table.name === '주장 309건' ? 'A1:H4' : 'A1:G5', scale: 1, format: 'png'});
-  await fs.writeFile(path.join(outputDir, `sheet-${index + 1}.png`), new Uint8Array(await preview.arrayBuffer()));
+const filenames = ['claims.xlsx', 'channel_summary.xlsx', 'type_summary.xlsx'];
+const exports = [{filename: 'analysis_data.xlsx', tables: data.tables},
+  ...data.tables.map((table, index) => ({filename: filenames[index], tables: [table]}))];
+for (const job of exports) {
+  const workbook = Workbook.create();
+  for (const table of job.tables) addTable(workbook, table);
+  workbook.recalculate();
+  console.log((await workbook.inspect({kind: 'table', range: `'${job.tables[0].name}'!A1:H3`, include: 'values,formulas', tableMaxRows: 3, tableMaxCols: 8, maxChars: 1200})).ndjson);
+  console.log((await workbook.inspect({kind: 'match', searchTerm: '#REF!|#DIV/0!|#VALUE!|#NAME\\?|#N/A|#NUM!|#NULL!', options: {useRegex: true, maxResults: 20}, maxChars: 600, summary: 'final formula error scan'})).ndjson);
+  if (job.tables.length === 1) {
+    const table = job.tables[0];
+    const preview = await workbook.render({sheetName: table.name, range: table.name === '주장 309건' ? 'A1:H4' : 'A1:G5', scale: 1, format: 'png'});
+    await fs.writeFile(path.join(outputDir, job.filename.replace('.xlsx', '.png')), new Uint8Array(await preview.arrayBuffer()));
+  }
+  const output = path.join(outputDir, job.filename);
+  await (await SpreadsheetFile.exportXlsx(workbook)).save(output);
+  await fs.copyFile(output, path.join(args.site, 'assets/analysis', job.filename));
+  console.log(JSON.stringify({workbook: output, sheets: job.tables.map(table => ({name: table.name, rows: table.rows.length}))}));
 }
-const output = path.join(outputDir, 'analysis_data.xlsx');
-await (await SpreadsheetFile.exportXlsx(workbook)).save(output);
-await fs.copyFile(output, path.join(args.site, 'assets/analysis/analysis_data.xlsx'));
-console.log(JSON.stringify({workbook: output, sheets: data.tables.map(table => ({name: table.name, rows: table.rows.length}))}));

@@ -21,7 +21,7 @@ python3 -m http.server 8790 --bind 127.0.0.1 --directory github_page
 - 상세 창 테이블 위의 **원본 영상 보기**, 확인된 시간의 YouTube 구간 링크
 - 헤더의 **코드북**에서 코드북 2.2 전문·목차와 원문 다운로드
 - 코드북 오른쪽 **분석**에서 RQ1–3 그래프, 보고서 전문·다운로드
-- **분석 페이지 상단**에서 전체 자료 XLSX 및 주장·채널·유형별 CSV 다운로드
+- **분석 페이지 상단**에서 전체 자료 XLSX, RQ1에서 주장 XLSX, RQ3에서 채널·유형별 XLSX 다운로드
 - RQ1의 **영양 개입·주장 결과 막대 클릭**으로 해당 분류의 주장 상세 페이지 이동 (검색·근거 필터·페이지 구분·원문·판정 근거·영상 구간 링크)
 - RQ2의 **등급명·전체 건수**는 등급 전체, **색상 막대·위험도별 건수**는 등급과 위험도를 함께 만족하는 주장으로 이동
 - RQ3의 **주제별 막대**는 해당 주제의 고위험 주장으로 이동하며, 상세 페이지에서 주제 전체·다른 위험도로 전환
@@ -71,7 +71,7 @@ RQ3의 **고위험 주장의 채널 집중도 아래**에는 메타데이터 감
 python3 github_page/scripts/export_analysis.py
 ```
 
-분석 자료 다운로드도 같은 명령으로 갱신합니다. `assets/analysis/analysis_data.xlsx`는 **주장 309건**, **채널별 집계 23행**, **유형별 집계 6행** 시트를 담으며, 각 시트는 첫 행 고정과 필터를 지원합니다. 같은 자료를 `claims.csv`, `channel_summary.csv`, `type_summary.csv`로도 제공합니다. 유형 집계는 원본의 0건 유형도 보존합니다. 주장 CSV는 공개된 `rq1_claims.json`의 309개 적격 주장만 포함하며 434행 전체 재검토 CSV와 다릅니다. 다중 태그는 세미콜론으로 구분하고 인용 구간은 JSON 문자열로 보존합니다. CSV는 UTF-8 BOM과 수식 방지 이스케이프를 사용하며 XLSX의 집계 건수·백분율 열은 숫자로 저장합니다.
+분석 자료 다운로드도 같은 명령으로 갱신합니다. `assets/analysis/analysis_data.xlsx`는 **주장 309건**, **채널별 집계 23행**, **유형별 집계 6행** 시트를 담으며, 각 시트는 첫 행 고정과 필터를 지원합니다. 개별 파일은 `claims.xlsx`, `channel_summary.xlsx`, `type_summary.xlsx`입니다. **주장 XLSX** 버튼은 RQ1, **채널 XLSX** 버튼은 RQ3 채널 분석, **유형 XLSX** 버튼은 RQ3 임상 위험의 제목과 분리된 오른쪽 다운로드 영역에 있습니다. 모바일에서는 제목 아래 별도 행의 오른쪽에 배치합니다. 상단에는 전체 자료 XLSX 버튼만 둡니다. 변환에 사용한 CSV도 보존합니다. 유형 집계는 원본의 0건 유형도 보존합니다. 주장 자료는 공개된 `rq1_claims.json`의 309개 적격 주장만 포함하며 434행 전체 재검토 CSV와 다릅니다. 다중 태그는 세미콜론으로 구분하고 인용 구간은 JSON 문자열로 보존합니다. CSV는 UTF-8 BOM과 수식 방지 이스케이프를 사용하며 XLSX의 집계 건수·백분율 열은 숫자로 저장합니다.
 
 XLSX 생성에는 Node.js와 관리 런타임의 `@oai/artifact-tool`이 필요합니다. 기본 모듈 위치는 `~/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules`이며, 다른 관리 런타임은 `ARTIFACT_TOOL_NODE_MODULES`로 지정합니다. 생성·검증용 파일은 원본 프로젝트의 `outputs/analysis-downloads-2026-10-26/`에 저장하고 완성 XLSX만 공개 자산에 복사합니다. 방문자와 GitHub Pages 배포에는 이 도구가 필요 없습니다. 다운로드 파일의 SHA-256은 공개 `manifest.json`에 기록됩니다.
 

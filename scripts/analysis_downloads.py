@@ -85,7 +85,8 @@ def export_downloads(site, claims, channel_source):
                    input=json.dumps({'analysis_date': claims['analysis_date'],
                                      'review_id': claims['review_id'], 'tables': tables}, ensure_ascii=False),
                    text=True, check=True)
-    names = ['claims.csv', 'channel_summary.csv', 'type_summary.csv', 'analysis_data.xlsx']
+    names = ['claims.csv', 'channel_summary.csv', 'type_summary.csv', 'analysis_data.xlsx',
+             'claims.xlsx', 'channel_summary.xlsx', 'type_summary.xlsx']
     return {'claims': len(table['rows']), 'channels': len(tables[1]['rows']),
             'type_rows': len(tables[2]['rows']),
             'sha256': {name: hashlib.sha256((assets / name).read_bytes()).hexdigest() for name in names}}

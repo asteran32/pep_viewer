@@ -18,7 +18,17 @@
 .analysis-data-links .analysis-data-excel{background:var(--accent);border-color:var(--accent);color:#fff}
 .analysis-data-links .analysis-data-excel:hover{background:#103f33}
 .analysis-data-links a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-@media(max-width:650px){.analysis-data-downloads{gap:14px;padding:16px 0}.analysis-data-scope{width:100%}.analysis-data-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}.analysis-data-links a{font-size:11px;min-height:42px}}
+.section-heading-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px 40px;margin-bottom:8px}
+.section-heading-copy{min-width:0}
+.section-heading-copy .section-kicker{margin-bottom:8px}
+.section-heading-actions{display:flex;align-items:center;justify-content:flex-end}
+.section-data-download{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-width:118px;min-height:44px;padding:10px 16px;border:1px solid #b9ccc0;border-radius:5px;font-size:12px;font-weight:500;white-space:nowrap;flex-shrink:0;transition:background-color .16s,border-color .16s}
+.section-data-download span{transition:transform .16s}
+.section-data-download:hover span{transform:translateY(2px)}
+.section-data-download:hover{background:var(--soft);border-color:var(--accent);text-decoration:none}
+.section-data-download:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:650px){.analysis-data-downloads{gap:14px;padding:16px 0}.analysis-data-scope{width:100%}.analysis-data-links{display:flex;width:100%}.analysis-data-links a{font-size:11px;min-height:42px}.section-heading-row{grid-template-columns:minmax(0,1fr);gap:14px;margin-bottom:12px}.section-heading-actions{width:100%}.section-data-download{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.section-data-download,.section-data-download span{transition:none}.section-data-download:hover span{transform:none}}
 .analysis-layout{display:grid;grid-template-columns:164px minmax(0,1fr);gap:44px;align-items:start}
 .analysis-toc{position:sticky;top:24px;padding-top:30px;font-size:12px}
 .analysis-toc-label{font-size:10px;color:var(--muted);letter-spacing:.08em;margin-bottom:12px}

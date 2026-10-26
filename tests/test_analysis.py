@@ -33,7 +33,7 @@ class AnalysisExportTests(unittest.TestCase):
         for name, digest in json.loads((SITE / 'assets/analysis/manifest.json').read_text())['downloads']['sha256'].items():
             self.assertEqual(hashlib.sha256((SITE / 'assets/analysis' / name).read_bytes()).hexdigest(), digest)
 
-    def test_workbook_matches_all_three_csvs_without_losing_text_or_missing_rates(self):
+    def test_combined_and_individual_workbooks_preserve_all_csv_values_and_missing_rates(self):
         ns = {'s': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
         data = json.loads((SITE / 'assets/analysis/rq1_claims.json').read_text())
         table = claim_table(data)
@@ -41,13 +41,18 @@ class AnalysisExportTests(unittest.TestCase):
         for name in ['channel_summary.csv', 'type_summary.csv']:
             with (SITE / 'assets/analysis' / name).open(encoding='utf-8-sig', newline='') as handle:
                 expected.append(list(csv.reader(handle)))
-        with zipfile.ZipFile(SITE / 'assets/analysis/analysis_data.xlsx') as archive:
+        datasets = list(zip(['주장 309건', '채널별 집계', '유형별 집계'], expected))
+        files = [('analysis_data.xlsx', datasets)] + [
+            (name, [dataset]) for name, dataset in zip(
+                ['claims.xlsx', 'channel_summary.xlsx', 'type_summary.xlsx'], datasets)]
+        for filename, tables in files:
+          with self.subTest(filename=filename), zipfile.ZipFile(SITE / 'assets/analysis' / filename) as archive:
             shared = ET.fromstring(archive.read('xl/sharedStrings.xml')) if 'xl/sharedStrings.xml' in archive.namelist() else []
             strings = [''.join(item.itertext()) for item in shared]
             workbook = ET.fromstring(archive.read('xl/workbook.xml'))
             self.assertEqual([sheet.get('name') for sheet in workbook.find('s:sheets', ns)],
-                             ['주장 309건', '채널별 집계', '유형별 집계'])
-            for index, rows in enumerate(expected, 1):
+                             [name for name, _ in tables])
+            for index, (_, rows) in enumerate(tables, 1):
                 sheet = ET.fromstring(archive.read(f'xl/worksheets/sheet{index}.xml'))
                 cells = {}
                 for cell in sheet.findall('.//s:sheetData/s:row/s:c', ns):
@@ -66,7 +71,7 @@ class AnalysisExportTests(unittest.TestCase):
                             column = chr(65 + digit) + column
                         actual = cells.get(f'{column}{r}', '')
                         # CSV percentages/counts are strings; XLSX retains numeric types.
-                        if r > 1 and index > 1 and rows[0][c - 1].endswith('_pct') and value != '':
+                        if r > 1 and rows[0][c - 1].endswith('_pct') and value != '':
                             self.assertEqual(float(actual), float(value))
                         else:
                             self.assertEqual(actual, str(value), (index, r, c))
